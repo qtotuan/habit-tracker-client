@@ -1,8 +1,9 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 const Habit = (props) => {
   return(
-    <div>{props.habit.name}: (props.habit.description}</div>
+    <Link to={`/habits/${props.habit.id}`}>{props.habit.title}</Link>
   )
 }
 

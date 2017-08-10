@@ -5,14 +5,16 @@ import App from './App';
 import registerServiceWorker from './registerServiceWorker';
 import { Provider } from 'react-redux'
 import { store } from './store'
-import { Router, Route, browserHistory } from 'react-router'
-import ConnectedHabitList from './components/habits/habitList'
+import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom'
+import ConnectedHabitContainer from './components/habits/habitContainer'
 
 ReactDOM.render(
   <Provider store={store}>
-    <Router history={browserHistory}>
-      <Route path="/" component={App}/>
-      <Route path="/habits" component={ConnectedHabitList}/>
+    <Router>
+      <div>
+        <Route exact path="/" component={App}/>
+        <Route path="/habits" component={ConnectedHabitContainer}/>
+      </div>
     </Router>
   </Provider>,
   document.getElementById('root')
