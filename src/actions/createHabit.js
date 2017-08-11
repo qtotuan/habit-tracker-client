@@ -1,9 +1,9 @@
 import fetch from 'isomorphic-fetch';
 
-export default function setCurrentHabit(habit, state) {
+export default function createHabit(habit, state) {
 
   let config = {
-    method: 'PUT',
+    method: 'POST',
     headers: {
       'content-type': 'application/json',
       'accept': 'application/json',
@@ -13,8 +13,8 @@ export default function setCurrentHabit(habit, state) {
   }
 
   return (dispatch) => {
-    dispatch({ type: "UPDATING_HABITS" });
-    return fetch(`http://localhost:3000/api/v1/habits/${habit.id}`, config)
+    dispatch({ type: "CREATING_HABIT" });
+    return fetch(`http://localhost:3000/api/v1/habits`, config)
       .then(response => response.json())
       .then(json => dispatch({ type: 'UPDATE_HABITS', payload: json.habits }))
   }

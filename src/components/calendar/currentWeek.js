@@ -1,5 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
+import updateHabit from '../../actions/updateHabit'
 
 //Current week from Monday through Sunday
 let curr = new Date //Today's Date
@@ -27,6 +29,8 @@ class CurrentWeek extends React.Component {
     // send something to backend
     // also
     this.setState({ selectedDate: day})
+
+    this.props.updateHabit(this.props.habit, { selectedDate: day})
 
     var config = {
       method: 'PUT',
@@ -61,7 +65,7 @@ class CurrentWeek extends React.Component {
         return "selected"
       }
     } else {
-      
+
 
     }
 
@@ -82,8 +86,13 @@ class CurrentWeek extends React.Component {
   }
 }
 
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators({
+    updateHabit: updateHabit
+  }, dispatch)
+}
 
-export default CurrentWeek
+export default connect(null, mapDispatchToProps)(CurrentWeek)
 
 
 

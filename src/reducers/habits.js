@@ -6,6 +6,9 @@ export default function habitReducer(state = [], action) {
     case 'ADD_HABITS': {
       return action.payload
     }
+    case 'UPDATE_HABITS': {
+      return action.payload
+    }
     default: return state
   }
 }

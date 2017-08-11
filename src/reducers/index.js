@@ -1,6 +1,8 @@
 import { combineReducers } from 'redux'
-import habitReducer from './habits'
+import habitsReducer from './habits'
+import currentHabitReducer from './currentHabit'
 
 export default combineReducers({
-  habits: habitReducer
+  habits: habitsReducer,
+  currentHabit: currentHabitReducer
 })
