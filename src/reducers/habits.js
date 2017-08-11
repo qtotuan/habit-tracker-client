@@ -4,7 +4,6 @@ export default function habitReducer(state = [], action) {
   console.log("State is:", state);
   switch(action.type) {
     case 'ADD_HABITS': {
-      console.log("Payload 2 is:", action.payload);
       return action.payload
     }
     default: return state

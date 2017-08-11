@@ -11,7 +11,6 @@ class HabitContainer extends React.Component {
 
   componentDidMount() {
     if (this.props.habits.length === 0) {
-      console.log('in componentDidMount');
         this.props.fetchHabits()
     }
   }

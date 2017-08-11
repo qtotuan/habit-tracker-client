@@ -1,4 +1,5 @@
 import React from 'react'
+import { connect } from 'react-redux'
 
 //Current week from Monday through Sunday
 let curr = new Date //Today's Date
@@ -6,44 +7,74 @@ let week = []
 
 for (let i = 1; i <= 7; i++) {
   let first = curr.getDate() - curr.getDay() + i //getDate() is current day of the month, getDay() is day of the week (0 is Sunday, 1 is Monday, etc)
-  let day = new Date(curr.setDate(first)).toUTCString()
+  let day = new Date(curr.setDate(first)).toISOString().slice(0, 10)
   week.push(day)
 }
 
 class CurrentWeek extends React.Component {
 
   constructor(props) {
-    super(props)
+    super()
 
     this.state = {
-      selected_date: new Date
+      selectedDate: new Date
     }
   }
 
   handleClick = (event, day) => {
-    console.log("Firing");
-    this.setState({ selected_date: day})
 
-    fetch(`http://localhost:3000/api/v1/habits/${this.props.habit.id}`, {
-      method: 'POST',
-      body: JSON.stringify(this.state),
+
+    // send something to backend
+    // also
+    this.setState({ selectedDate: day})
+
+    var config = {
+      method: 'PUT',
       headers: {
         'content-type': 'application/json',
         'accept': 'application/json',
         // 'Authorization': localStorage.getItem('jwt')
-      }
+      },
+      body: JSON.stringify({ selectedDate: day})
+    }
+
+    // update state even though response come back  -> Optimistic rendering
+    fetch(`http://localhost:3000/api/v1/habits/${this.props.habit.id}`, config)
+    .then(res => res.json())
+    .then(habit => {
+      console.log(habit)
+
+      // sending out an action that indcates to store that this habit has a new completed date
+
+      // update state only if response has come back -> Pessimistic rendering
+      // this.forceUdate()
     })
-    .then(res => console.log(res.json()))
+
+
+  }
+
+  isSelected = (date) => {
+    console.log(this.props)
+
+    if (this.props.habit.dates_completed) {
+      if (this.props.habit.dates_completed.includes(date)) {
+        return "selected"
+      }
+    } else {
+      
+
+    }
 
   }
 
   render() {
-    console.log("State is now:", this.state.selected_date);
+    // debugger
+
     return (
       <div>
         <ul>
           {week.map( day => {
-            return <li key={day} onClick={(event) => this.handleClick(event, day)}>{day}</li>
+              return <li className={this.isSelected(day)} key={day} onClick={(event) => this.handleClick(event, day)}>{day}</li>
           })}
         </ul>
       </div>
@@ -51,4 +82,22 @@ class CurrentWeek extends React.Component {
   }
 }
 
+
 export default CurrentWeek
+
+
+
+
+// I am inside store
+
+//
+// state = {
+//   habits: [
+//     {
+//       title: "Floss",
+//       dateCompleted: [
+//         "Tuesday", "Friday", "Monday"
+//       ]
+//     }
+//   ]
+// }
