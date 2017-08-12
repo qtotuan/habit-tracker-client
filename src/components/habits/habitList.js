@@ -6,14 +6,15 @@ import CurrentWeek from '../calendar/currentWeek'
 
 
 const HabitList = (props) => {
-  debugger
-  let sortedHabits = props.habits.sort
+  let sortedHabits = props.habits.sort((a, b) => {
+    return a.id - b.id
+  })
 
   return(
     <div>
       <h1>My Habits</h1>
       <ul>
-        {props.habits.map( habit => {
+        {sortedHabits.map( habit => {
         return (
           <li key={habit.id}>
             <Habit habit={habit} />
