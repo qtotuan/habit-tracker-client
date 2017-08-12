@@ -6,6 +6,8 @@ import { bindActionCreators } from 'redux'
 import HabitList from './habitList'
 import { Route, Switch } from 'react-router-dom';
 import ConnectedHabitShow from './habitShow'
+import ConnectedHabitForm from './habitNew'
+import ConnectedHabitEdit from './habitEdit'
 
 class HabitContainer extends React.Component {
 
@@ -24,7 +26,8 @@ class HabitContainer extends React.Component {
           <Route exact path={`${match.url}`} render={() => (
             <HabitList habits={habits} />
           )}/>
-          <Route path={`${match.url}/new`} />
+          <Route path={`${match.url}/new`} component={ConnectedHabitForm} />
+          <Route path={`${match.url}/:habitId/edit`} component={ConnectedHabitEdit} />
           <Route path={`${match.url}/:habitId`} component={ConnectedHabitShow}/>
           <Route exact path={`${match.url}`} render={() => (
             <h3>Please select a habit from the list</h3>

@@ -7,6 +7,7 @@ import { Provider } from 'react-redux'
 import { store } from './store'
 import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom'
 import ConnectedHabitContainer from './components/habits/habitContainer'
+import 'semantic-ui-css/semantic.min.css'
 
 ReactDOM.render(
   <Provider store={store}>

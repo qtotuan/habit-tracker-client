@@ -1,7 +1,7 @@
 import fetch from 'isomorphic-fetch';
 
-export default function createHabit(habit, state) {
-
+export default function createHabit(state) {
+  // debugger
   let config = {
     method: 'POST',
     headers: {
