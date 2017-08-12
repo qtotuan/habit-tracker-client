@@ -5,6 +5,7 @@ import CurrentWeek from '../calendar/currentWeek'
 import { Button } from 'semantic-ui-react'
 import { Link } from 'react-router-dom'
 import SetCurrentHabit from '../../actions/setCurrentHabit'
+import DeleteHabit from '../../actions/deleteHabit'
 // import FetchHabits from '../../actions/fetchHabits'
 
 class HabitShow extends React.Component {
@@ -12,6 +13,10 @@ class HabitShow extends React.Component {
   //   this.props.fetchHabits()
   //   this.props.setCurrentHabit(this.props.habit)
   // }
+
+  handleDelete = () => {
+    this.props.deleteHabit(this.props.habit)
+  }
 
   render() {
     return(
@@ -22,7 +27,7 @@ class HabitShow extends React.Component {
 
         <br /><br />
         <Link to={`${this.props.match.url}/edit`}>Edit</Link><br /><br />
-        <Link to='/habits'>Delete</Link><br /><br />
+        <Link to='/habits' onClick={this.handleDelete}>Delete</Link><br /><br />
         <Link to='/habits'>Back</Link><br /><br />
       </div>
     )
@@ -46,6 +51,7 @@ function mapStateToProps(state, ownProps) {
 function mapDispatchToProps(dispatch) {
   return bindActionCreators({
     setCurrentHabit: SetCurrentHabit,
+    deleteHabit: DeleteHabit
     // fetchHabits: FetchHabits
   }, dispatch)
 }

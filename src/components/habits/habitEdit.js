@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Container, Button, Divider, Form, Dropdown } from 'semantic-ui-react'
-import { BrowserRouter as Router, Route, Redirect} from 'react-router-dom'
+import { BrowserRouter as Router, Route, Redirect, Link} from 'react-router-dom'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import UpdateHabit from '../../actions/updateHabit'
@@ -25,8 +25,8 @@ class HabitEdit extends React.Component {
   }
 
   handleSubmit = (event) => {
-    event.preventDefault()
     // debugger
+    event.preventDefault()
     this.props.updateHabit(this.props.currentHabit, this.state)
   }
 
@@ -52,6 +52,7 @@ class HabitEdit extends React.Component {
           <Form.Field label='Description' control='input' value={this.state.description} name='description' onChange={this.handleChange}/>
           <Form.Dropdown label='Category' placeholder={this.props.currentHabit.category} name='category' fluid search selection options={options} onChange={this.handleDropdownChange} />
           <Button type='submit'>Submit</Button>
+          <Link to={`/habits/${this.props.currentHabit.id}`}>Cancel</Link>
           <Divider hidden />
         </Form>
         {this.state.user}<br/><br/>

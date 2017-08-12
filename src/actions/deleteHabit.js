@@ -1,20 +1,20 @@
 import fetch from 'isomorphic-fetch';
 
-export default function createHabit(state) {
+export default function setCurrentHabit(habit) {
+
   let config = {
-    method: 'POST',
+    method: 'DELETE',
     headers: {
       'content-type': 'application/json',
       'accept': 'application/json',
       // 'Authorization': localStorage.getItem('jwt')
     },
-    body: JSON.stringify(state)
+    body: JSON.stringify(habit)
   }
 
-  // debugger
   return (dispatch) => {
-    dispatch({ type: "CREATING_HABIT" });
-    return fetch(`http://localhost:3000/api/v1/habits`, config)
+    dispatch({ type: "DELETING_HABIT" });
+    return fetch(`http://localhost:3000/api/v1/habits/${habit.id}`, config)
       .then(response => response.json())
       .then(json => dispatch({ type: 'UPDATE_HABITS', payload: json.habits }))
   }

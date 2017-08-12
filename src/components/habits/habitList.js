@@ -1,10 +1,13 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 import Habit from './habit'
 import { connect } from 'react-redux'
 import CurrentWeek from '../calendar/currentWeek'
 
 
 const HabitList = (props) => {
+  debugger
+  let sortedHabits = props.habits.sort
 
   return(
     <div>
@@ -16,9 +19,9 @@ const HabitList = (props) => {
             <Habit habit={habit} />
             <CurrentWeek habit={habit} />
           </li>
-        )
-      })}
-    </ul>
+        )})}
+      </ul>
+      <Link to="/habits/new">Create New Habit</Link>
     </div>
   )
 }
