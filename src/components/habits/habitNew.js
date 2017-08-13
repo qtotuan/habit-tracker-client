@@ -28,6 +28,7 @@ class HabitForm extends React.Component {
     event.preventDefault()
     // debugger
     this.props.createHabit(this.state)
+    this.setState({ redirect: true })
   }
 
   handleChange = event => {

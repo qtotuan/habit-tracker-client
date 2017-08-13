@@ -8,7 +8,9 @@ let curr = new Date //Today's Date
 let week = []
 
 for (let i = 1; i <= 7; i++) {
-  let first = curr.getDate() - curr.getDay() + i //getDate() is current day of the month, getDay() is day of the week (0 is Sunday, 1 is Monday, etc)
+  //getDate() is current day of the month
+  //getDay() is day of the week (0 is Sunday, 1 is Monday, etc.)
+  let first = curr.getDate() - curr.getDay() + i
   let day = new Date(curr.setDate(first)).toISOString().slice(0, 10)
   week.push(day)
 }
@@ -64,9 +66,6 @@ class CurrentWeek extends React.Component {
       if (this.props.habit.dates_completed.includes(date)) {
         return "selected"
       }
-    } else {
-
-
     }
 
   }

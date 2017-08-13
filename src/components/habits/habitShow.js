@@ -1,29 +1,30 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import CurrentWeek from '../calendar/currentWeek'
+import CurrentMonth from '../calendar/currentMonth'
 import { Button } from 'semantic-ui-react'
 import { Link } from 'react-router-dom'
 import SetCurrentHabit from '../../actions/setCurrentHabit'
 import DeleteHabit from '../../actions/deleteHabit'
-// import FetchHabits from '../../actions/fetchHabits'
+
 
 class HabitShow extends React.Component {
-  // componentDidMount() {
-  //   this.props.fetchHabits()
-  //   this.props.setCurrentHabit(this.props.habit)
-  // }
+  componentDidMount() {
+    this.props.setCurrentHabit(this.props.habit)
+  }
 
   handleDelete = () => {
     this.props.deleteHabit(this.props.habit)
   }
 
   render() {
+    // debugger
     return(
       <div>
         <h2>{this.props.habit.title}</h2>
         <p>Description: {this.props.habit.description}</p>
-        <p><CurrentWeek habit={this.props.habit}/></p>
+        {/* <p>Category: {this.props.habit.category.name}</p> */}
+        <p><CurrentMonth habit={this.props.habit}/></p>
 
         <br /><br />
         <Link to={`${this.props.match.url}/edit`}>Edit</Link><br /><br />
@@ -36,12 +37,10 @@ class HabitShow extends React.Component {
 
 function mapStateToProps(state, ownProps) {
   const habit = state.habits.find( habit => habit.id.toString() === ownProps.match.params.habitId)
-  // debugger
 
   if (habit) {
     return {
-      habit: habit,
-      // habits: state.habits
+      habit: habit
     }
   } else {
     return { habit: {title: "Not found"} }
@@ -52,7 +51,6 @@ function mapDispatchToProps(dispatch) {
   return bindActionCreators({
     setCurrentHabit: SetCurrentHabit,
     deleteHabit: DeleteHabit
-    // fetchHabits: FetchHabits
   }, dispatch)
 }
 

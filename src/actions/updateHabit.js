@@ -16,6 +16,9 @@ export default function setCurrentHabit(habit, state) {
     dispatch({ type: "UPDATING_HABITS" });
     return fetch(`http://localhost:3000/api/v1/habits/${habit.id}`, config)
       .then(response => response.json())
-      .then(json => dispatch({ type: 'UPDATE_HABITS', payload: json.habits }))
+      .then(json => {
+        console.log("In updating_habits", json);
+        dispatch({ type: 'UPDATE_HABITS', payload: json.habits })
+      })
   }
 }

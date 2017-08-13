@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Route, Redirect, Link} from 'react-router-dom'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import UpdateHabit from '../../actions/updateHabit'
+import SetCurrentHabit from '../../actions/setCurrentHabit'
 
 const options = [
   { key: 'health', text: 'Health', value: 'health' },
@@ -16,10 +17,10 @@ class HabitEdit extends React.Component {
     super(props)
 
     this.state = {
-      user_id: this.props.currentUser.id,
+      user_id: this.props.currentUser_id,
       title: this.props.currentHabit.title,
       description: this.props.currentHabit.description,
-      category_id: this.props.currentHabit.category_id,
+      category_id: this.props.currentHabit.category.id,
       redirect: false
     }
   }
@@ -28,6 +29,7 @@ class HabitEdit extends React.Component {
     // debugger
     event.preventDefault()
     this.props.updateHabit(this.props.currentHabit, this.state)
+    this.setState({ redirect: true })
   }
 
   handleChange = event => {
@@ -45,12 +47,12 @@ class HabitEdit extends React.Component {
   render() {
     return(
       <div>
-        {this.state.redirect? <Redirect to='/habits'/> : null }
+        {this.state.redirect? <Redirect to={`/habits/${this.props.currentHabit.id}`}/> : null }
         <h1>Edit {this.props.currentHabit.title}</h1>
         <Form onSubmit={this.handleSubmit}>
           <Form.Field label='Title' control='input' value={this.state.title} name='title' onChange={this.handleChange}/>
           <Form.Field label='Description' control='input' value={this.state.description} name='description' onChange={this.handleChange}/>
-          <Form.Dropdown label='Category' placeholder={this.props.currentHabit.category} name='category' fluid search selection options={options} onChange={this.handleDropdownChange} />
+          <Form.Dropdown label='Category' placeholder={this.props.currentHabit.category.name} name='category' fluid search selection options={options} onChange={this.handleDropdownChange} />
           <Button type='submit'>Submit</Button>
           <Link to={`/habits/${this.props.currentHabit.id}`}>Cancel</Link>
           <Divider hidden />
@@ -66,7 +68,8 @@ class HabitEdit extends React.Component {
 
 function mapDispatchToProps(dispatch) {
   return bindActionCreators({
-    updateHabit: UpdateHabit
+    updateHabit: UpdateHabit,
+    setCurrentHabit: SetCurrentHabit
   }, dispatch)
 }
 
