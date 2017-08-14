@@ -45,7 +45,7 @@ class CurrentWeek extends React.Component {
     }
 
     // update state even though response come back  -> Optimistic rendering
-    fetch(`http://localhost:3000/api/v1/habits/${this.props.habit.id}`, config)
+    fetch(`https://sheltered-reef-37337.herokuapp.com/api/v1/habits/${this.props.habit.id}`, config)
     .then(res => res.json())
     .then(habit => {
       console.log(habit)
