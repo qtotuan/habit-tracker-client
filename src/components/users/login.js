@@ -24,11 +24,11 @@ class LoginForm extends Component {
         <h1>Login</h1>
         {/* <Form size='large' id='login-form' onSubmit={() => this.props.onLogin(this.state)}> */}
         <Form size='large' id='login-form'>
-          <Form.Field onChange={this.handleChange} label='Email' control='input' placeholder='Email address' />
-          <Form.Input label='Enter Password' type='password' />
+          <Form.Field onChange={this.handleChange} label='Email' control='input' placeholder='Email' />
+          <Form.Input label='Enter Password' type='password' placeholder='Password' />
           {/* <Button  type='submit' color='blue'>Login</Button> */}
-          <Button><Link to="/habits"> Log In</Link></Button>
-          or
+          <Button><Link to="/habits"> Log In</Link></Button><br /><br />
+          or<br />
           <Link to="/signup"> Sign Up</Link>
           <Divider hidden />
         </Form>

@@ -19,8 +19,8 @@ class App extends Component {
       <div className="App">
         <div className="App-header">
           <h2>Welcome to Habit Tracker!</h2>
-          <Login />
         </div>
+        <Login />
       </div>
     );
   }

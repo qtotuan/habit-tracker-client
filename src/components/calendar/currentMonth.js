@@ -5,14 +5,13 @@ import updateHabit from '../../actions/updateHabit'
 import InfiniteCalendar from 'react-infinite-calendar';
 import 'react-infinite-calendar/styles.css';
 
-//Current month from Monday through Sunday
-let curr = new Date //Today's Date
+let curr = new Date // Today's date
 let month = []
+let daysInMonth = new Date(curr.getFullYear(), curr.getMonth(), 0).getDate()
 
-for (let i = 0; i <= 30; i++) {
+for (let i = 0; i < daysInMonth; i++) {
   //getDate() is current day of the month
   //getDay() is day of the month (0 is Sunday, 1 is Monday, etc.)
-  let first = curr.getDate() - curr.getDay() + i
   let day = new Date(curr.setDate(1 + i)).toISOString().slice(0, 10)
   month.push(day)
 }
@@ -58,19 +57,18 @@ class CurrentWeek extends React.Component {
     }
   }
 
+    render() {
+      return (
+        <div>
+          <ul>
+            {month.map( day => {
+                return <li className={this.isSelected(day)} key={day} onClick={(event) => this.handleClick(event, day)}>{day}</li>
+            })}
+          </ul>
+        </div>
+      )
+    }
 
-  render() {
-    let today = new Date()
-    return(
-      <InfiniteCalendar
-        width={400}
-        height={600}
-        selected={today}
-        disabledDays={[0,6]}
-        minDate={new Date(today.getFullYear(), today.getMonth(), today.getDate() - 7)}
-      />
-    )
-  }
 }
 
 
@@ -81,15 +79,3 @@ function mapDispatchToProps(dispatch) {
 }
 
 export default connect(null, mapDispatchToProps)(CurrentWeek)
-
-//   render() {
-//     return (
-//       <div>
-//         <ul>
-//           {month.map( day => {
-//               return <li className={this.isSelected(day)} key={day} onClick={(event) => this.handleClick(event, day)}>{day}</li>
-//           })}
-//         </ul>
-//       </div>
-//     )
-//   }
