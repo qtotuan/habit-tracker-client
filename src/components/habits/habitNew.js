@@ -5,10 +5,20 @@ import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import CreateHabit from '../../actions/createHabit'
 
-const options = [
+const optionsCategory = [
   { key: 'health', text: 'Health', value: 'health' },
   { key: 'finance', text: 'Finance', value: 'finance' },
   { key: 'relationship', text: 'Relationship', value: 'relationship' }
+]
+
+const optionsFrequency = [
+  { key: '1', text: '1', value: 1 },
+  { key: '2', text: '2', value: 2 },
+  { key: '3', text: '3', value: 3 },
+  { key: '4', text: '4', value: 4 },
+  { key: '5', text: '5', value: 5 },
+  { key: '6', text: '6', value: 6 },
+  { key: '7', text: '7', value: 7 }
 ]
 
 class HabitForm extends React.Component {
@@ -20,7 +30,8 @@ class HabitForm extends React.Component {
       title: '',
       description: '',
       category: '',
-      redirect: false
+      redirect: false,
+      frequency: 0
     }
   }
 
@@ -40,19 +51,26 @@ class HabitForm extends React.Component {
   }
 
   handleDropdownChange = (e, result) => {
-    this.setState({category: result.value})
+    // debugger
+    let key = result.name
+    let value = result.value
+    this.setState({
+      [key]: value
+    })
   }
 
   render() {
     return(
-      <div>
+      <Container>
         {this.state.redirect? <Redirect to='/habits'/> : null }
         <h1>Create A New Habit</h1>
         <Form onSubmit={this.handleSubmit}>
           <Form.Field label='Title' control='input' placeholder='Title' name='title' onChange={this.handleChange}/>
           <Form.Field label='Description' control='input' placeholder='Description' name='description' onChange={this.handleChange}/>
-          <Form.Dropdown label='Category' placeholder='Category' name='category' fluid search selection options={options} onChange={this.handleDropdownChange} />
-          <Button type='submit'>Submit</Button><br />
+          <Form.Dropdown label='Category' placeholder='Category' name='category' fluid search selection options={optionsCategory} onChange={this.handleDropdownChange} />
+          <Form.Dropdown label='I want to complete this habit x times per week' placeholder='Frequency' name='frequency' compact selection options={optionsFrequency} onChange={this.handleDropdownChange} />
+          <br/><br/>
+          <Button type='submit'>Submit</Button><br /><br />
           <Link to="/habits">Cancel</Link>
           <Divider hidden />
         </Form>
@@ -60,7 +78,8 @@ class HabitForm extends React.Component {
         {this.state.title}<br/><br/>
         {this.state.description}<br/><br/>
         {this.state.category}<br/><br/>
-      </div>
+        {this.state.frequency}<br/><br/>
+      </Container>
     )
   }
 }

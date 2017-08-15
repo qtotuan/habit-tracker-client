@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom'
 import Habit from './habit'
 import { connect } from 'react-redux'
 import CurrentWeek from '../calendar/currentWeek'
+import { Progress, Container, Button } from 'semantic-ui-react'
+import completionRate from './habitCompletionRateFlexible'
 
 
 const HabitList = (props) => {
@@ -10,20 +12,31 @@ const HabitList = (props) => {
     return a.id - b.id
   })
 
+
   return(
-    <div>
+    <Container>
       <h1>My Habits</h1>
-      <ul>
+
         {sortedHabits.map( habit => {
         return (
-          <li key={habit.id}>
+          <div key={habit.id}>
             <Habit habit={habit} />
+            {completionRate(habit.dates_completed, habit.frequency)[0] > 99
+              ?
+               <Progress percent={completionRate(habit.dates_completed, habit.frequency)[0]} progress success />
+               :
+                <Progress percent={completionRate(habit.dates_completed, habit.frequency)[0]} progress />
+              }
+            You have completed {completionRate(habit.dates_completed, habit.frequency)[1]} out of {habit.frequency}
+            <br/><br/>
             <CurrentWeek habit={habit} />
-          </li>
+            <br/><br/>
+          </div>
         )})}
-      </ul>
-      <Link to="/habits/new">Create New Habit</Link>
-    </div>
+
+      <Button><Link to="/habits/new">Create New Habit</Link></Button>
+      <br/><br/>
+    </Container>
   )
 }
 

@@ -6,6 +6,8 @@ import { Button } from 'semantic-ui-react'
 import { Link } from 'react-router-dom'
 import SetCurrentHabit from '../../actions/setCurrentHabit'
 import DeleteHabit from '../../actions/deleteHabit'
+import completionRate from './habitCompletionRateFlexible'
+import { Progress, Container } from 'semantic-ui-react'
 
 
 class HabitShow extends React.Component {
@@ -19,10 +21,13 @@ class HabitShow extends React.Component {
 
   render() {
     // debugger
+
     return(
-      <div>
+      <Container>
         <h2>{this.props.habit.title}</h2>
         <p>Description: {this.props.habit.description}</p>
+        <p>{`Your goal is to perform this habit ${this.props.habit.frequency} time(s) per week`}</p>
+        <Progress percent={completionRate(this.props.habit.dates_completed, this.props.habit.frequency)[0]} progress />
         {/* <p>Category: {this.props.habit.category.name}</p> */}
         <p><CurrentMonth habit={this.props.habit}/></p>
 
@@ -30,7 +35,7 @@ class HabitShow extends React.Component {
         <Link to={`${this.props.match.url}/edit`}>Edit</Link><br /><br />
         <Link to='/habits' onClick={this.handleDelete}>Delete</Link><br /><br />
         <Link to='/habits'>Back</Link><br /><br />
-      </div>
+      </Container>
     )
   }
 }

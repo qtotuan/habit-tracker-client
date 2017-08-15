@@ -12,6 +12,16 @@ const options = [
   { key: 'relationship', text: 'Relationship', value: 'relationship' }
 ]
 
+const optionsFrequency = [
+  { key: '1', text: '1', value: 1 },
+  { key: '2', text: '2', value: 2 },
+  { key: '3', text: '3', value: 3 },
+  { key: '4', text: '4', value: 4 },
+  { key: '5', text: '5', value: 5 },
+  { key: '6', text: '6', value: 6 },
+  { key: '7', text: '7', value: 7 }
+]
+
 class HabitEdit extends React.Component {
   constructor(props) {
     super(props)
@@ -41,7 +51,11 @@ class HabitEdit extends React.Component {
   }
 
   handleDropdownChange = (e, result) => {
-    this.setState({category: result.value})
+    let key = result.name
+    let value = result.value
+    this.setState({
+      [key]: value
+    })
   }
 
   render() {
@@ -53,6 +67,7 @@ class HabitEdit extends React.Component {
           <Form.Field label='Title' control='input' value={this.state.title} name='title' onChange={this.handleChange}/>
           <Form.Field label='Description' control='input' value={this.state.description} name='description' onChange={this.handleChange}/>
           <Form.Dropdown label='Category' placeholder={this.props.currentHabit.category.name} name='category' fluid search selection options={options} onChange={this.handleDropdownChange} />
+          <Form.Dropdown label='I want to complete this habit x times per week' placeholder={this.props.currentHabit.frequency} name='frequency' compact selection options={optionsFrequency} onChange={this.handleDropdownChange} />
           <Button type='submit'>Submit</Button>
           <Link to={`/habits/${this.props.currentHabit.id}`}>Cancel</Link>
           <Divider hidden />

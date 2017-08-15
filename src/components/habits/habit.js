@@ -12,7 +12,7 @@ class Habit extends React.Component {
 
   render() {
     return(
-      <Link onClick={this.handleClick} to={`/habits/${this.props.habit.id}`}>{this.props.habit.title}</Link>
+      <h3><Link onClick={this.handleClick} to={`/habits/${this.props.habit.id}`}>{this.props.habit.title}</Link></h3>
     )
   }
 }
