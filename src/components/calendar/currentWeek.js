@@ -59,25 +59,23 @@ class CurrentWeek extends React.Component {
 
   }
 
-  isSelected = (date) => {
-    console.log(this.props)
-
-    if (this.props.habit.dates_completed) {
-      if (this.props.habit.dates_completed.includes(date)) {
+  isSelected = (day) => {
+    if (this.props.habit.dates_completed && this.props.habit.dates_completed.includes(day))
         return "selected"
-      }
-    }
-
   }
 
-  render() {
-    // debugger
+  // getClassNames = (day) => (
+  //   {selected: this.isSelected(day),
+  //   "habit-dates": true}
+  // )
 
+
+  render() {
     return (
       <div>
         <ul>
           {week.map( day => {
-              return <li className={this.isSelected(day)} key={day} onClick={(event) => this.handleClick(event, day)}>{day}</li>
+              return <li className={`${this.isSelected(day)} habit-dates`} key={day} onClick={(event) => this.handleClick(event, day)}>{day}</li>
           })}
         </ul>
       </div>

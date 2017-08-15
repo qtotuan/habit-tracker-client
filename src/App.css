@@ -28,6 +28,14 @@ li.selected {
   color: green
 }
 
+li.habit-dates:hover {
+  width: fit-content
+}
+
+li.habit-dates:hover {
+  cursor: pointer
+}
+
 h1 {
   color: grey
 }

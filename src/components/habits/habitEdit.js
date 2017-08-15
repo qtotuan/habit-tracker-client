@@ -36,7 +36,6 @@ class HabitEdit extends React.Component {
   }
 
   handleSubmit = (event) => {
-    // debugger
     event.preventDefault()
     this.props.updateHabit(this.props.currentHabit, this.state)
     this.setState({ redirect: true })

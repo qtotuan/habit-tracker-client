@@ -37,7 +37,6 @@ class HabitForm extends React.Component {
 
   handleSubmit = (event) => {
     event.preventDefault()
-    // debugger
     this.props.createHabit(this.state)
     this.setState({ redirect: true })
   }
@@ -51,7 +50,6 @@ class HabitForm extends React.Component {
   }
 
   handleDropdownChange = (e, result) => {
-    // debugger
     let key = result.name
     let value = result.value
     this.setState({

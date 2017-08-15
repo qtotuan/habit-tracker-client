@@ -20,15 +20,11 @@ class HabitShow extends React.Component {
   }
 
   render() {
-    // debugger
-
     return(
       <Container>
         <h2>{this.props.habit.title}</h2>
         <p>Description: {this.props.habit.description}</p>
         <p>{`Your goal is to perform this habit ${this.props.habit.frequency} time(s) per week`}</p>
-        <Progress percent={completionRate(this.props.habit.dates_completed, this.props.habit.frequency)[0]} progress />
-        {/* <p>Category: {this.props.habit.category.name}</p> */}
         <p><CurrentMonth habit={this.props.habit}/></p>
 
         <br /><br />
