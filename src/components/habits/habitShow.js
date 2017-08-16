@@ -37,15 +37,9 @@ class HabitShow extends React.Component {
 }
 
 function mapStateToProps(state, ownProps) {
+  // debugger
   const habit = state.habits.find( habit => habit.id.toString() === ownProps.match.params.habitId)
-
-  if (habit) {
-    return {
-      habit: habit
-    }
-  } else {
-    return { habit: {title: "Not found"} }
-  }
+  return (habit) ? { habit: habit} : { habit: {title: "Not found"} }
 }
 
 function mapDispatchToProps(dispatch) {

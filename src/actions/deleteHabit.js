@@ -16,6 +16,6 @@ export default function setCurrentHabit(habit) {
     dispatch({ type: "DELETING_HABIT" });
     return fetch(`http://localhost:3000/api/v1/habits/${habit.id}`, config)
       .then(response => response.json())
-      .then(json => dispatch({ type: 'UPDATE_HABITS', payload: json.habits }))
+      .then(json => dispatch({ type: 'UPDATE_HABITS', payload: json }))
   }
 }

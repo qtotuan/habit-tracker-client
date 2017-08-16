@@ -54,18 +54,20 @@ class LoginForm extends Component {
     return(
       <Container>
         {this.state.redirect? <Redirect to={`/habits`}/> : null }
-
-        <h1>Login</h1>
-        {/* <Form size='large' id='login-form' onSubmit={() => this.props.onLogin(this.state)}> */}
-        <Form size='large' id='login-form' onSubmit={() => this.onLogin(this.state)}>
-          <Form.Field onChange={this.handleChange} label='Email' control='input' placeholder='Email' />
-          <Button  type='submit' color='blue'>Login</Button><br /><br />
-          {/* <Button><Link to="/habits"> Log In</Link></Button><br /><br /> */}
-          or
-          <Link to="/signup"> Sign Up</Link>
-          <Divider hidden />
-        </Form>
-        {this.state.error? message : null}
+          <div className="App">
+          <div className="App-header"><h2>Welcome to Habit Tracker!</h2></div>
+          <h1>Login</h1>
+          {/* <Form size='large' id='login-form' onSubmit={() => this.props.onLogin(this.state)}> */}
+          <Form size='large' id='login-form' onSubmit={() => this.onLogin(this.state)}>
+            <Form.Field onChange={this.handleChange} label='Email' control='input' placeholder='Email' />
+            <Button  type='submit' color='blue'>Login</Button><br /><br />
+            {/* <Button><Link to="/habits"> Log In</Link></Button><br /><br /> */}
+            or
+            <Link to="/signup"> Sign Up</Link>
+            <Divider hidden />
+          </Form>
+          {this.state.error? message : null}
+        </div>
       </Container>
     )
   }

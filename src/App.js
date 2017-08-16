@@ -7,6 +7,7 @@ import { connect } from 'react-redux'
 import FetchHabits from './actions/fetchHabits'
 import { bindActionCreators } from 'redux'
 import SignUpForm from './components/users/signup'
+import ConnectedHabitContainer from './components/habits/habitContainer'
 
 class App extends Component {
 
@@ -18,15 +19,13 @@ class App extends Component {
 
   render() {
     return (
-      <div className="App">
-        <div className="App-header"><h2>Welcome to Habit Tracker!</h2></div>
         <Router>
-          <div>
-            <Route exact path='/' component={Login} />
-            <Route exact path='/signup' component={SignUpForm} />
-          </div>
+            <div>
+              <Route exact path='/' component={Login} />
+              <Route exact path='/signup' component={SignUpForm} />
+              <Route path="/habits" component={ConnectedHabitContainer}/>
+            </div>
         </Router>
-      </div>
     );
   }
 }

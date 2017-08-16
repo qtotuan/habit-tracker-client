@@ -18,7 +18,7 @@ export default function setCurrentHabit(habit, state) {
       .then(response => response.json())
       .then(json => {
         console.log("In updating_habits", json);
-        dispatch({ type: 'UPDATE_HABITS', payload: json.habits })
+        dispatch({ type: 'UPDATE_HABITS', payload: json })
       })
   }
 }

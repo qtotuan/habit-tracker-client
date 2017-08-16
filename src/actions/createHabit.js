@@ -8,7 +8,7 @@ export default function createHabit(state) {
       'accept': 'application/json',
       // 'Authorization': localStorage.getItem('jwt')
     },
-    body: JSON.stringify(state)
+    body: JSON.stringify({habit:state,user_email:localStorage.getItem("email")})
   }
 
   // debugger
@@ -17,7 +17,7 @@ export default function createHabit(state) {
     return fetch(`http://localhost:3000/api/v1/habits`, config)
       .then(response => response.json())
       .then(json => {
-        dispatch({ type: 'UPDATE_HABITS', payload: json.habits })
+        dispatch({ type: 'UPDATE_HABITS', payload: json })
         console.log("Habit was updated:", json);
       })
   }

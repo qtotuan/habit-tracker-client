@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import fetchHabits from '../../actions/fetchHabits'
 import { bindActionCreators } from 'redux'
 import HabitList from './habitList'
-import { Route, Switch } from 'react-router-dom';
+import { Route, Switch, Redirect } from 'react-router-dom';
 import ConnectedHabitShow from './habitShow'
 import ConnectedHabitForm from './habitNew'
 import ConnectedHabitEdit from './habitEdit'
@@ -17,21 +17,25 @@ class HabitContainer extends React.Component {
     }
   }
 
+  isLoggedIn = () => {
+    return !!localStorage.getItem('email')
+  }
+
   render() {
     const { match, habits } = this.props;
+
+    let filteredHabits = habits.filter( habit => {
+      // debugger
+      return habit.user.email === localStorage.getItem('email')
+    })
 
     return(
       <div>
         <Switch>
-          <Route exact path={`${match.url}`} render={() => (
-            <HabitList habits={habits} />
-          )}/>
-          <Route path={`${match.url}/new`} component={ConnectedHabitForm} />
-          <Route path={`${match.url}/:habitId/edit`} component={ConnectedHabitEdit} />
-          <Route path={`${match.url}/:habitId`} component={ConnectedHabitShow}/>
-          <Route exact path={`${match.url}`} render={() => (
-            <h3>Please select a habit from the list</h3>
-          )} />
+          <Route exact path={`${match.url}`} render={() => this.isLoggedIn() ? <HabitList habits={filteredHabits} /> : <Redirect to="/" />} />
+          <Route path={`${match.url}/new`} render={() => this.isLoggedIn() ? <ConnectedHabitForm /> : <Redirect to="/" />} />
+          <Route path={`${match.url}/:habitId/edit`} render={() => this.isLoggedIn() ? <ConnectedHabitEdit /> : <Redirect to="/" />} />
+          <Route path={`${match.url}/:habitId`} component={ConnectedHabitShow} />
         </Switch>
       </div>
     )
@@ -39,7 +43,10 @@ class HabitContainer extends React.Component {
 }
 
 function mapStateToProps(state) {
-  return { habits: state.habits }
+  return {
+    habits: state.habits,
+    currentUser: state.currentUser
+  }
 }
 
 function mapDispatchToProps(dispatch) {

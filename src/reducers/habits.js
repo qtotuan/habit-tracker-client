@@ -7,6 +7,7 @@ export default function habitReducer(state = [], action) {
       return action.payload
     }
     case 'UPDATE_HABITS': {
+      // debugger
       return action.payload
     }
     default: return state
