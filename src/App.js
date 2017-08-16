@@ -8,6 +8,7 @@ import FetchHabits from './actions/fetchHabits'
 import { bindActionCreators } from 'redux'
 import SignUpForm from './components/users/signup'
 import ConnectedHabitContainer from './components/habits/habitContainer'
+import Logout from './components/users/logout'
 
 class App extends Component {
 
@@ -17,11 +18,17 @@ class App extends Component {
     }
   }
 
+
+  isLoggedIn = () => {
+    return !!localStorage.getItem('email')
+  }
+
   render() {
     return (
         <Router>
             <div>
-              <Route exact path='/' component={Login} />
+              {/* <Route path='/' component={Logout} /> */}
+              <Route exact path='/' render={()=> this.isLoggedIn() ? <Redirect to="/habits"/> : <Login /> } />
               <Route exact path='/signup' component={SignUpForm} />
               <Route path="/habits" component={ConnectedHabitContainer}/>
             </div>

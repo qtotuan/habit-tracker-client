@@ -35,6 +35,7 @@ class HabitEdit extends React.Component {
     }
   }
 
+
   handleSubmit = (event) => {
     event.preventDefault()
     this.props.updateHabit(this.props.currentHabit, this.state)
@@ -59,7 +60,7 @@ class HabitEdit extends React.Component {
 
   render() {
     return(
-      <div>
+      <Container>
         {this.state.redirect? <Redirect to={`/habits/${this.props.currentHabit.id}`}/> : null }
         <h1>Edit {this.props.currentHabit.title}</h1>
         <Form onSubmit={this.handleSubmit}>
@@ -75,7 +76,7 @@ class HabitEdit extends React.Component {
         {this.state.title}<br/><br/>
         {this.state.description}<br/><br/>
         {this.state.category}<br/><br/>
-      </div>
+      </Container>
     )
   }
 }

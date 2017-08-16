@@ -22,7 +22,7 @@ class HabitShow extends React.Component {
   render() {
     return(
       <Container>
-        <h2>{this.props.habit.title}</h2>
+        <h1>{this.props.habit.title}</h1>
         <p>Description: {this.props.habit.description}</p>
         <p>{`Your goal is to perform this habit ${this.props.habit.frequency} time(s) per week`}</p>
         <p><CurrentMonth habit={this.props.habit}/></p>

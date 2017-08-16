@@ -4,6 +4,10 @@ import { bindActionCreators } from 'redux'
 import updateHabit from '../../actions/updateHabit'
 import InfiniteCalendar from 'react-infinite-calendar';
 import 'react-infinite-calendar/styles.css';
+import { Container } from 'semantic-ui-react'
+
+var moment = require('moment');
+moment().format();
 
 let curr = new Date // Today's date
 let month = []
@@ -59,13 +63,13 @@ class CurrentWeek extends React.Component {
 
     render() {
       return (
-        <div>
+        <Container>
           <ul>
             {month.map( day => {
-                return <li className={this.isSelected(day)} key={day} onClick={(event) => this.handleClick(event, day)}>{day}</li>
+                return <li className={`${this.isSelected(day)} habit-dates`} key={day} onClick={(event) => this.handleClick(event, day)}>{day}</li>
             })}
           </ul>
-        </div>
+        </Container>
       )
     }
 
