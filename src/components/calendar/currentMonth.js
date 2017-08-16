@@ -4,31 +4,46 @@ import { bindActionCreators } from 'redux'
 import updateHabit from '../../actions/updateHabit'
 import InfiniteCalendar from 'react-infinite-calendar';
 import 'react-infinite-calendar/styles.css';
-import { Container } from 'semantic-ui-react'
+import { Container, Button } from 'semantic-ui-react'
 
-var moment = require('moment');
+let moment = require('moment');
 moment().format();
-
-let curr = new Date // Today's date
-let month = []
-let daysInMonth = new Date(curr.getFullYear(), curr.getMonth(), 0).getDate()
-
-for (let i = 0; i < daysInMonth; i++) {
-  //getDate() is current day of the month
-  //getDay() is day of the month (0 is Sunday, 1 is Monday, etc.)
-  let day = new Date(curr.setDate(1 + i)).toISOString().slice(0, 10)
-  month.push(day)
-}
 
 class CurrentWeek extends React.Component {
 
   constructor(props) {
     super()
-
     this.state = {
-      selectedDate: new Date
+      selectedDate: new Date,
+      now: moment(),
+      month: []
     }
+    // debugger
   }
+
+  componentWillMount() {
+    // debugger
+    this.setMonth()
+  }
+
+  setMonth() {
+    // debugger
+    let curr = this.state.now
+    let currMonth = curr.month()
+    let currYear = curr.year()
+    let counter = curr.daysInMonth()
+    let myMonth = []
+
+    for (let i = 1; i <= counter; i++) {
+      console.log(i);
+      let d = moment([currYear, currMonth, i]).format("YYYY-MM-DD")
+      myMonth.push(d)
+    }
+    // debugger
+    this.setState({ month: myMonth })
+    return myMonth
+  }
+
 
   handleClick = (event, day) => {
 
@@ -53,6 +68,18 @@ class CurrentWeek extends React.Component {
     })
   }
 
+  handleNext = (e) => {
+    let newDate = this.state.now.add(1, 'months')
+    this.setState({ now: newDate })
+    this.setMonth()
+  }
+
+  handlePrevious = (e) => {
+    let newDate = this.state.now.subtract(1, 'months')
+    this.setState({ now: newDate })
+    this.setMonth()
+  }
+
   isSelected = (date) => {
     if (this.props.habit.dates_completed) {
       if (this.props.habit.dates_completed.includes(date)) {
@@ -62,17 +89,19 @@ class CurrentWeek extends React.Component {
   }
 
     render() {
+      // debugger
       return (
         <Container>
           <ul>
-            {month.map( day => {
+            {this.state.month.map( day => {
                 return <li className={`${this.isSelected(day)} habit-dates`} key={day} onClick={(event) => this.handleClick(event, day)}>{day}</li>
             })}
           </ul>
+          <Button onClick={this.handlePrevious}>Previous Month</Button>
+          <Button onClick={this.handleNext}>Next Month</Button>
         </Container>
       )
     }
-
 }
 
 
