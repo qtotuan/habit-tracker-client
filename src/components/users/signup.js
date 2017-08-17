@@ -52,9 +52,9 @@ class SignUpForm extends Component {
         {this.state.redirect ? <Redirect to="/habits"/> : null }
         <h1>Sign Up</h1>
         <Form size='large' id='signup-form' onSubmit={this.handleSubmit}>
-          <Form.Field name="first_name" label='First name' control='input' placeholder='First name' onChange={this.handleChange}/>
-          <Form.Field name="last_name" label='Last name' control='input' placeholder='Last name'  onChange={this.handleChange}/>
-          <Form.Field name="email" label='Email' control='input' placeholder='Email address'  onChange={this.handleChange}/>
+          <Form.Field name="first_name" label='First name' control='input' placeholder='First name' onChange={this.handleChange} required/>
+          <Form.Field name="last_name" label='Last name' control='input' placeholder='Last name'  onChange={this.handleChange} required/>
+          <Form.Field name="email" label='Email' control='input' placeholder='Email address'  onChange={this.handleChange} required/>
           <Button type='submit'>Submit</Button>
           <Divider hidden />
         </Form>

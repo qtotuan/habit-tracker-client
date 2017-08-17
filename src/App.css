@@ -46,19 +46,23 @@
   text-align: center;
 
   font: 1em Arial, sans-serif;
+
 }
 
 .selected-day {
-  background: green;
+  background: rgb(33, 186, 69);
   color: white;
 }
 
-habit-dates:hover {
-  width: fit-content;
+.habit-dates:hover {
   cursor: pointer;
 }
 
 
 h1 {
   color: grey
+}
+
+.last-row {
+  margin-bottom: 50px
 }

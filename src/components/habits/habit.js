@@ -7,7 +7,6 @@ import setCurrentHabit from '../../actions/setCurrentHabit'
 class Habit extends React.Component {
 
   handleClick = (event) => {
-    console.log("Firing");
     this.props.setCurrentHabit(this.props.habit)
   }
 

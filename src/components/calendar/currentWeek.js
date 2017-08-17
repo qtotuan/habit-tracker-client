@@ -2,7 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import updateHabit from '../../actions/updateHabit'
-import { Grid, Image, Table } from 'semantic-ui-react'
+import { Grid, Image, Table, Divider } from 'semantic-ui-react'
 
 var moment = require('moment');
 moment().format();
@@ -78,15 +78,15 @@ class CurrentWeek extends React.Component {
     return (
       <div>
         <Table celled>
-          <Table.Row className="current-week-table">
-          {week.map( day => {
-            let weekday = moment(day)
-            return <Table.Cell className="weekdays" key={day} onClick={(event) => this.handleClick(event, day)}>{weekday.format("dd")}</Table.Cell>
-            })}
-          </Table.Row>
-
           <Table.Body>
             <Table.Row className="current-week-table">
+            {week.map( day => {
+              let weekday = moment(day)
+              return <Table.Cell className="weekdays" key={day} onClick={(event) => this.handleClick(event, day)}>{weekday.format("dd")}</Table.Cell>
+              })}
+            </Table.Row>
+
+            <Table.Row className="current-week-table last-row">
             {week.map( day => {
               let dayDisplay = parseInt(day.split("-")[2])
               return <Table.Cell className={`${this.isSelected(day)} habit-dates`} key={day} onClick={(event) => this.handleClick(event, day)}>{dayDisplay}</Table.Cell>
@@ -94,6 +94,7 @@ class CurrentWeek extends React.Component {
             </Table.Row>
           </Table.Body>
         </Table>
+        <div className="last-row" />
       </div>
     )
   }

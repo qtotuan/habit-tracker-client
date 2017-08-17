@@ -15,7 +15,7 @@ const HabitList = (props) => {
 
   return(
     <Container>
-      <h1>My Habits</h1>
+      <h1>Habits</h1>
 
         {sortedHabits.map( habit => {
         return (
