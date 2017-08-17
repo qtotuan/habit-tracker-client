@@ -18,16 +18,13 @@ class CurrentWeek extends React.Component {
       now: moment(),
       month: []
     }
-    // debugger
   }
 
   componentWillMount() {
-    // debugger
     this.setMonth()
   }
 
   setMonth() {
-    // debugger
     let curr = this.state.now
     let currMonth = curr.month()
     let currYear = curr.year()
@@ -35,22 +32,16 @@ class CurrentWeek extends React.Component {
     let myMonth = []
 
     for (let i = 1; i <= counter; i++) {
-      console.log(i);
       let d = moment([currYear, currMonth, i]).format("YYYY-MM-DD")
       myMonth.push(d)
     }
-    // debugger
     this.setState({ month: myMonth })
-    return myMonth
   }
 
 
   handleClick = (event, day) => {
-
     this.setState({ selectedDate: day})
-
     this.props.updateHabit(this.props.habit, { selectedDate: day})
-
     var config = {
       method: 'PUT',
       headers: {
@@ -88,20 +79,19 @@ class CurrentWeek extends React.Component {
     }
   }
 
-    render() {
-      // debugger
-      return (
-        <Container>
-          <ul>
-            {this.state.month.map( day => {
-                return <li className={`${this.isSelected(day)} habit-dates`} key={day} onClick={(event) => this.handleClick(event, day)}>{day}</li>
-            })}
-          </ul>
-          <Button onClick={this.handlePrevious}>Previous Month</Button>
-          <Button onClick={this.handleNext}>Next Month</Button>
-        </Container>
-      )
-    }
+  render() {
+    return (
+      <Container>
+        <ul>
+          {this.state.month.map( day => {
+              return <li className={`${this.isSelected(day)} habit-dates`} key={day} onClick={(event) => this.handleClick(event, day)}>{day}</li>
+          })}
+        </ul>
+        <Button onClick={this.handlePrevious}>Previous Month</Button>
+        <Button onClick={this.handleNext}>Next Month</Button>
+      </Container>
+    )
+  }
 }
 
 
