@@ -2,6 +2,10 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import updateHabit from '../../actions/updateHabit'
+import { Grid, Image, Table } from 'semantic-ui-react'
+
+var moment = require('moment');
+moment().format();
 
 //Current week from Monday through Sunday
 let curr = new Date //Today's Date
@@ -61,7 +65,7 @@ class CurrentWeek extends React.Component {
 
   isSelected = (day) => {
     if (this.props.habit.dates_completed && this.props.habit.dates_completed.includes(day))
-        return "selected"
+        return "selected-day"
   }
 
   // getClassNames = (day) => (
@@ -73,11 +77,23 @@ class CurrentWeek extends React.Component {
   render() {
     return (
       <div>
-        <ul>
+        <Table celled>
+          <Table.Row className="current-week-table">
           {week.map( day => {
-              return <li className={`${this.isSelected(day)} habit-dates`} key={day} onClick={(event) => this.handleClick(event, day)}>{day}</li>
-          })}
-        </ul>
+            let weekday = moment(day)
+            return <Table.Cell className="weekdays" key={day} onClick={(event) => this.handleClick(event, day)}>{weekday.format("dd")}</Table.Cell>
+            })}
+          </Table.Row>
+
+          <Table.Body>
+            <Table.Row className="current-week-table">
+            {week.map( day => {
+              let dayDisplay = parseInt(day.split("-")[2])
+              return <Table.Cell className={`${this.isSelected(day)} habit-dates`} key={day} onClick={(event) => this.handleClick(event, day)}>{dayDisplay}</Table.Cell>
+            })}
+            </Table.Row>
+          </Table.Body>
+        </Table>
       </div>
     )
   }

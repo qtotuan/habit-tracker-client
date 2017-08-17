@@ -24,17 +24,40 @@
   to { transform: rotate(360deg); }
 }
 
-li.selected {
-  color: green
+.current-week-table {
+    text-align: center
 }
 
-li.habit-dates:hover {
-  width: fit-content
+.weekdays {
+  color: grey;
+}
+.habit-dates {
+  /*border-radius: 50%;*/
+
+  margin-right: 10px;
+
+  width: 36px;
+  height: 36px;
+  padding-top: 8px;
+
+  background: #e6e6e6;
+  /*border: 2px solid #666;*/
+  color: #666;
+  text-align: center;
+
+  font: 1em Arial, sans-serif;
 }
 
-li.habit-dates:hover {
-  cursor: pointer
+.selected-day {
+  background: green;
+  color: white;
 }
+
+habit-dates:hover {
+  width: fit-content;
+  cursor: pointer;
+}
+
 
 h1 {
   color: grey
