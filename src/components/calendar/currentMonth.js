@@ -4,10 +4,12 @@ import { bindActionCreators } from 'redux'
 import updateHabit from '../../actions/updateHabit'
 import InfiniteCalendar from 'react-infinite-calendar';
 import 'react-infinite-calendar/styles.css';
-import { Container, Button } from 'semantic-ui-react'
+import { Container, Button, Table } from 'semantic-ui-react'
 
 let moment = require('moment');
 moment().format();
+
+
 
 class CurrentWeek extends React.Component {
 
@@ -36,6 +38,10 @@ class CurrentWeek extends React.Component {
       myMonth.push(d)
     }
     this.setState({ month: myMonth })
+  }
+
+  addOffset = (month) => {
+    month
   }
 
 
@@ -79,19 +85,73 @@ class CurrentWeek extends React.Component {
     }
   }
 
+  // function renderMonth(month) {
+  //   for (let i = 0; i < month.length/7; i++) {
+  //     let week = []
+  //     for (let j = 0; j < 7; j++) {
+  //       week.push(month[(i * 7) + j])
+  //     }
+  //     console.log(week);
+  //   }
+  // }
+
+  addOffset = (month) => {
+    let newMonth = month
+    let offset = moment(month[0]).day()
+    if (offset === 0) {
+      offset = 7
+    }
+    for (let i = 1; i < offset; i++) {
+      newMonth.unshift("1")
+    }
+    // debugger
+
+    return newMonth
+  }
+
+  renderTable = () => {
+    let all = []
+    let monthWithOffset = this.addOffset(this.state.month)
+    for (let i = 0; i < this.state.month.length/7; i++) {
+      let cells = []
+      for (let j = 0; j < 7; j++) {
+        let day = monthWithOffset[(i * 7) + j]
+        cells.push(<Table.Cell className={`${this.isSelected(day)} habit-dates`} key={`day #${j}`} onClick={(event) => this.handleClick(event, day)}>{day}</Table.Cell>)
+      }
+      all.push(<Table.Row cells={cells} />)
+    }
+    return all
+  }
+
   render() {
-    return (
-      <Container>
-        <ul>
-          {this.state.month.map( day => {
-              return <li className={`${this.isSelected(day)} habit-dates`} key={day} onClick={(event) => this.handleClick(event, day)}>{day}</li>
-          })}
-        </ul>
+    return(
+      <div>
+        <Table>
+          <Table.Body>
+            {this.renderTable()}
+
+          </Table.Body>
+        </Table>
         <Button onClick={this.handlePrevious}>Previous Month</Button>
         <Button onClick={this.handleNext}>Next Month</Button>
-      </Container>
+      </div>
     )
   }
+
+  // render() {
+  //   return (
+  //     <Container>
+  //       <ul>
+  //         {this.state.month.map( day => {
+  //             return <li className={`${this.isSelected(day)} habit-dates`} key={day} onClick={(event) => this.handleClick(event, day)}>{day}</li>
+  //         })}
+  //       </ul>
+  //       <Button onClick={this.handlePrevious}>Previous Month</Button>
+  //       <Button onClick={this.handleNext}>Next Month</Button>
+  //     </Container>
+  //   )
+  // }
+
 }
 
 
