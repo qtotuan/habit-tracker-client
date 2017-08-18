@@ -4,7 +4,7 @@ import { bindActionCreators } from 'redux'
 import updateHabit from '../../actions/updateHabit'
 import InfiniteCalendar from 'react-infinite-calendar';
 import 'react-infinite-calendar/styles.css';
-import { Container, Button, Table } from 'semantic-ui-react'
+import { Container, Button, Icon, Label, Menu, Table } from 'semantic-ui-react'
 
 let moment = require('moment');
 moment().format();
@@ -80,7 +80,7 @@ class CurrentWeek extends React.Component {
   isSelected = (date) => {
     if (this.props.habit.dates_completed) {
       if (this.props.habit.dates_completed.includes(date)) {
-        return "selected"
+        return "selected-day"
       }
     }
   }
@@ -102,7 +102,7 @@ class CurrentWeek extends React.Component {
       offset = 7
     }
     for (let i = 1; i < offset; i++) {
-      newMonth.unshift("1")
+      newMonth.unshift(" ")
     }
     // debugger
 
@@ -118,7 +118,7 @@ class CurrentWeek extends React.Component {
         let day = monthWithOffset[(i * 7) + j]
         cells.push(<Table.Cell className={`${this.isSelected(day)} habit-dates`} key={`day #${j}`} onClick={(event) => this.handleClick(event, day)}>{day}</Table.Cell>)
       }
-      all.push(<Table.Row cells={cells} />)
+      all.push(<Table.Row cells={cells} className="month-table-body" />)
     }
     return all
   }
@@ -126,14 +126,28 @@ class CurrentWeek extends React.Component {
   render() {
     return(
       <div>
+        <h3 className="month-header">{this.state.now.format("MMMM")}</h3>
         <Table>
           <Table.Body>
             {this.renderTable()}
-
           </Table.Body>
+
+          <Table.Footer>
+            <Table.Row>
+              <Table.HeaderCell colSpan='7'>
+                <Menu floated='right' pagination>
+                  <Menu.Item as='a' icon onClick={this.handlePrevious}>
+                    <Icon name='left chevron' />
+                  </Menu.Item>
+
+                  <Menu.Item as='a' icon onClick={this.handleNext}>
+                    <Icon name='right chevron' />
+                  </Menu.Item>
+                </Menu>
+              </Table.HeaderCell>
+            </Table.Row>
+          </Table.Footer>
         </Table>
-        <Button onClick={this.handlePrevious}>Previous Month</Button>
-        <Button onClick={this.handleNext}>Next Month</Button>
       </div>
     )
   }

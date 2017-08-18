@@ -66,3 +66,12 @@ h1 {
 .last-row {
   margin-bottom: 50px
 }
+
+.month-header {
+  text-align: center;
+  color: grey
+}
+
+.month-table-body {
+  text-align: center;
+}
