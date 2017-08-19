@@ -9,6 +9,7 @@ import { bindActionCreators } from 'redux'
 import SignUpForm from './components/users/signup'
 import ConnectedHabitContainer from './components/habits/habitContainer'
 import Logout from './components/users/logout'
+import NavBar from './components/users/navBar'
 
 class App extends Component {
 
@@ -27,7 +28,7 @@ class App extends Component {
     return (
         <Router>
             <div>
-              {/* <Route path='/' component={Logout} /> */}
+              <Route path="/habits" component={NavBar}/>
               <Route exact path='/' render={()=> this.isLoggedIn() ? <Redirect to="/habits"/> : <Login /> } />
               <Route exact path='/signup' component={SignUpForm} />
               <Route path="/habits" component={ConnectedHabitContainer}/>
