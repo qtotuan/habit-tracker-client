@@ -9,15 +9,14 @@ export default function fetchHabits(callback, habitId) {
       .then(response => response.json())
       .then( json => {
         dispatch({ type: 'ADD_HABITS', payload: json})
-        // debugger
-        // if (id) {
-        //   return json.find(habit => habit.id.toString() === id.toString())
-        // }
+        if (id) {
+          return json.find(habit => habit.id.toString() === id.toString())
+        }
       })
-      // .then(habit => {
-      //   if (func) {
-      //     func(habit)
-      //   }
-      // })
+      .then(habit => {
+        if (func) {
+          func(habit)
+        }
+      })
   }
 }

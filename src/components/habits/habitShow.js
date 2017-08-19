@@ -9,50 +9,44 @@ import DeleteHabit from '../../actions/deleteHabit'
 import completionRate from './habitCompletionRateFlexible'
 import { Progress, Container } from 'semantic-ui-react'
 import FetchHabits from '../../actions/fetchHabits'
+import Chart from '../dashboard/chart'
+import Gif from './habitGif'
 
 
 class HabitShow extends React.Component {
   componentWillMount() {
-    // console.log("In componentWillMount", ownProps.match.params.habitId);
-
-    this.props.fetchHabits()
+    let habitId = this.props.location.pathname.split("/")[2]
+    this.props.fetchHabits(this.props.setCurrentHabit, habitId)
   }
-
-
-
-  // componentDidMount() {
-  //   console.log("componentDidMount");
-  // }
-
-  // setHabit = () => {
-  //   if (this.props.currentHabit) {
-  //     this.props.setCurrentHabit(this.props.habit)
-  //   }
-  // }
 
   handleDelete = () => {
     this.props.deleteHabit(this.props.habit)
   }
 
   render() {
-    console.log(this.props.currentHabit);
-    // debugger
-    // {this.setHabit()}
+    console.log("currentHabit is now: ", this.props.currentHabit);
+    var category = "";
+    if(this.props.currentHabit !== undefined && this.props.currentHabit.category !== undefined){
+      category = this.props.currentHabit.category.name;
+    }
+
     return(
       <Container>
-
         <h1>{this.props.currentHabit.title}</h1>
         <p>Description: {this.props.currentHabit.description}</p>
-        {/* <p>Category: {this.props.currentHabit.category}</p> */}
+        <p>Category: {category}</p>
         <p>{`Your goal is to perform this habit ${this.props.currentHabit.frequency} time(s) per week`}</p>
         <p><CurrentMonth habit={this.props.currentHabit}/></p>
 
         <br /><br />
+
+        <Chart datesCompleted={this.props.currentHabit.dates_completed} target={this.props.currentHabit.frequency}/>
+
+        <br /><br />
+
         <Link to={`${this.props.match.url}/edit`}>Edit</Link><br /><br />
         <Link to='/habits' onClick={this.handleDelete}>Delete</Link><br /><br />
         <Link to='/habits'>Back</Link><br /><br />
-
-
       </Container>
     )
   }
@@ -63,7 +57,6 @@ function mapStateToProps(state, ownProps) {
   const habit = state.habits.find( habit => habit.id.toString() === ownProps.match.params.habitId)
   console.log("mapStateToProps", habit)
   let result = (habit) ? { currentHabit: habit} : { currentHabit: {title: "Not found"} }
-  // console.log("mapStateToProps", result)
   return result
 }
 
@@ -76,3 +69,5 @@ function mapDispatchToProps(dispatch) {
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(HabitShow)
+
+{/* <Gif searchTerm={this.props.currentHabit.title}/> */}

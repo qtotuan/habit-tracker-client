@@ -4,8 +4,8 @@ moment().format();
 
 export default function getCompletionRate(dates, target, currentDay) {
 
-  function getFirstAndLastDayOfWeek( currentDay = moment() ) {
-    let curr = currentDay
+  function getFirstAndLastDayOfWeek() {
+    let curr = currentDay || moment()
     let first = curr.date() - curr.day() + 1
     let firstDate = moment(curr.date(first)).hours(0).minute(0).second(0).milliseconds(0)
     let lastDate = firstDate.clone().add(6, 'days')
