@@ -8,6 +8,8 @@ import { Route, Switch, Redirect } from 'react-router-dom';
 import ConnectedHabitShow from './habitShow'
 import ConnectedHabitForm from './habitNew'
 import ConnectedHabitEdit from './habitEdit'
+import BarChart from '../dashboard/barChart'
+// import { LineChart, Line } from 'recharts'
 
 class HabitContainer extends React.Component {
 
@@ -35,6 +37,7 @@ class HabitContainer extends React.Component {
           <Route exact path={`${match.url}`} render={() => this.isLoggedIn() ? <HabitList habits={filteredHabits} /> : <Redirect to="/" />} />
           <Route path={`${match.url}/new`} render={() => this.isLoggedIn() ? <ConnectedHabitForm /> : <Redirect to="/" />} />
           <Route path={`${match.url}/:habitId/edit`} render={() => this.isLoggedIn() ? <ConnectedHabitEdit /> : <Redirect to="/" />} />
+          <Route path={`${match.url}/:habitId`} component={BarChart} />
           <Route path={`${match.url}/:habitId`} component={ConnectedHabitShow} />
         </Switch>
       </div>
