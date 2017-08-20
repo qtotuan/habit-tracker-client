@@ -49,9 +49,10 @@ class HabitShow extends React.Component {
 
         <br /><br />
 
-        <Link to={`${this.props.match.url}/edit`}>Edit</Link><br /><br />
-        <Link to='/habits' onClick={this.handleDelete}>Delete</Link><br /><br />
-        <Link to='/habits'>Back</Link><br /><br />
+        <Button><Link to={`${this.props.match.url}/edit`}>Edit</Link><br /><br /></Button>
+        <Button><Link to='/habits' onClick={this.handleDelete}>Delete</Link><br /><br /></Button>
+
+        <br /><br />
       </Container>
     )
   }
