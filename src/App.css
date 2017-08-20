@@ -79,3 +79,14 @@ h1 {
 .chart {
   text-align: center
 }
+
+.habit-details {
+  text-align: center
+}
+
+img {
+  width: 200px;
+  height: 200px;
+  overflow: hidden;
+  border-radius: 100%;
+}

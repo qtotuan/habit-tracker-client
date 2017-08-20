@@ -2,7 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import CurrentMonth from '../calendar/currentMonth'
-import { Button } from 'semantic-ui-react'
+import { Card, Icon, Image, Button, Item } from 'semantic-ui-react'
 import { Link } from 'react-router-dom'
 import SetCurrentHabit from '../../actions/setCurrentHabit'
 import DeleteHabit from '../../actions/deleteHabit'
@@ -24,18 +24,23 @@ class HabitShow extends React.Component {
   }
 
   render() {
-    console.log("currentHabit is now: ", this.props.currentHabit);
-    var category = "";
+    let category = "";
     if(this.props.currentHabit !== undefined && this.props.currentHabit.category !== undefined){
       category = this.props.currentHabit.category.name;
     }
 
     return(
       <Container>
-        <h1>{this.props.currentHabit.title}</h1>
-        <p>Description: {this.props.currentHabit.description}</p>
-        <p>Category: {category}</p>
-        <p>{`Your goal is to perform this habit ${this.props.currentHabit.frequency} time(s) per week`}</p>
+        <section className="habit-details">
+          <h1>{this.props.currentHabit.title}</h1>
+          <Gif searchTerm={this.props.currentHabit.title}/>
+          <p>Description: {this.props.currentHabit.description}</p>
+          <p>Category: {category}</p>
+          <p>{`Your goal is to perform this habit ${this.props.currentHabit.frequency} time(s) per week`}</p>
+        </section>
+
+        <br /><br />
+
         <p><CurrentMonth habit={this.props.currentHabit}/></p>
 
         <br /><br />
@@ -69,5 +74,3 @@ function mapDispatchToProps(dispatch) {
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(HabitShow)
-
-{/* <Gif searchTerm={this.props.currentHabit.title}/> */}
