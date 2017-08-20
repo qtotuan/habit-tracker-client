@@ -2,6 +2,7 @@ import React from 'react'
 import Habit from './habit'
 import { connect } from 'react-redux'
 import fetchHabits from '../../actions/fetchHabits'
+import setUser from '../../actions/setUser'
 import { bindActionCreators } from 'redux'
 import HabitList from './habitList'
 import { Route, Switch, Redirect } from 'react-router-dom';
@@ -15,6 +16,33 @@ class HabitContainer extends React.Component {
   componentDidMount() {
     if (this.props.habits.length === 0) {
         this.props.fetchHabits()
+    }
+
+    // debugger
+    if (this.props.currentUser.name === undefined ) {
+      this.findUser()
+    }
+  }
+
+  findUser() {
+    // debugger
+    fetch(`http://localhost:3000/api/v1/users`, {
+      method: 'GET',
+      headers: headers()
+    })
+    .then(res => res.json())
+    .then(json => {
+      console.log("-------------->", json);
+      let user = json.find( user => user.email === localStorage.getItem('email'))
+      this.props.setUser(user)
+    })
+
+    function headers () {
+      return {
+        'content-type': 'application/json',
+        'accept': 'application/json',
+        'Authorization': localStorage.getItem('email')
+      }
     }
   }
 
@@ -51,7 +79,10 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-  return { fetchHabits: bindActionCreators(fetchHabits, dispatch)}
+  return {
+    fetchHabits: bindActionCreators(fetchHabits, dispatch),
+    setUser: bindActionCreators(setUser, dispatch)
+  }
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(HabitContainer)
