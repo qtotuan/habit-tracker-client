@@ -10,7 +10,6 @@ let moment = require('moment');
 moment().format();
 
 
-
 class CurrentWeek extends React.Component {
 
   constructor(props) {
@@ -61,7 +60,7 @@ class CurrentWeek extends React.Component {
     fetch(`http://localhost:3000/api/v1/habits/${this.props.habit.id}`, config)
     .then(res => res.json())
     .then(habit => {
-      console.log(habit)
+
     })
   }
 
@@ -85,15 +84,6 @@ class CurrentWeek extends React.Component {
     }
   }
 
-  // function renderMonth(month) {
-  //   for (let i = 0; i < month.length/7; i++) {
-  //     let week = []
-  //     for (let j = 0; j < 7; j++) {
-  //       week.push(month[(i * 7) + j])
-  //     }
-  //     console.log(week);
-  //   }
-  // }
 
   addOffset = (month) => {
     let newMonth = month
@@ -102,10 +92,8 @@ class CurrentWeek extends React.Component {
       offset = 7
     }
     for (let i = 1; i < offset; i++) {
-      newMonth.unshift(" ")
+      newMonth.unshift("")
     }
-    // debugger
-
     return newMonth
   }
 
@@ -116,7 +104,13 @@ class CurrentWeek extends React.Component {
       let cells = []
       for (let j = 0; j < 7; j++) {
         let day = monthWithOffset[(i * 7) + j]
-        cells.push(<Table.Cell className={`${this.isSelected(day)} habit-dates`} key={`day #${j}`} onClick={(event) => this.handleClick(event, day)}>{day}</Table.Cell>)
+        let needOnClick = false
+        let validDate = `${this.isSelected(day)} habit-dates`
+        if (day !== "" && day !== undefined) {
+          needOnClick = (event) => this.handleClick(event, day)
+          validDate = `${this.isSelected(day)} habit-dates valid-date`
+        }
+        cells.push(<Table.Cell className={validDate} key={`day #${j}`} onClick={needOnClick}>{day}</Table.Cell>)
       }
       all.push(<Table.Row cells={cells} className="month-table-body" />)
     }
@@ -151,20 +145,6 @@ class CurrentWeek extends React.Component {
       </div>
     )
   }
-
-  // render() {
-  //   return (
-  //     <Container>
-  //       <ul>
-  //         {this.state.month.map( day => {
-  //             return <li className={`${this.isSelected(day)} habit-dates`} key={day} onClick={(event) => this.handleClick(event, day)}>{day}</li>
-  //         })}
-  //       </ul>
-  //       <Button onClick={this.handlePrevious}>Previous Month</Button>
-  //       <Button onClick={this.handleNext}>Next Month</Button>
-  //     </Container>
-  //   )
-  // }
 
 }
 
