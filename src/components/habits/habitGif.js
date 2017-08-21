@@ -18,7 +18,6 @@ class HabitGif extends React.Component {
   }
 
   fetchGif() {
-    // debugger
     if (this.props.currentHabit.title !== "Not found" && this.state.gifWasfetched === false) {
       fetch(`${baseUrl}?q=+${this.props.searchTerm}+&api_key=${apiKey}`)
       .then( res => res.json() )
@@ -34,7 +33,6 @@ class HabitGif extends React.Component {
   }
 
   render() {
-    // debugger
     if (this.props.currentHabit.title !== "Not found" && this.props.currentHabit.title !== undefined && this.state.gifWasfetched === false ) {
       this.fetchGif()
     }
