@@ -90,3 +90,11 @@ img {
   overflow: hidden;
   border-radius: 100%;
 }
+
+#month-table-header {
+  color: grey
+}
+
+.unselectable-date {
+  color: lightgray
+}

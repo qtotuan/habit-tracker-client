@@ -97,6 +97,7 @@ class CurrentWeek extends React.Component {
     return newMonth
   }
 
+
   renderTable = () => {
     let all = []
     let monthWithOffset = this.addOffset(this.state.month)
@@ -105,12 +106,17 @@ class CurrentWeek extends React.Component {
       for (let j = 0; j < 7; j++) {
         let day = monthWithOffset[(i * 7) + j]
         let needOnClick = false
-        let validDate = `${this.isSelected(day)} habit-dates`
-        if (day !== "" && day !== undefined) {
+        let validDate = [`${this.isSelected(day)} habit-dates`]
+        // Deactivate cells that are in the future
+
+        // Add event listener and styling conditionally to valid dates. Empty cells are not selectable
+        if (day !== "" && day !== undefined && moment(day) <= moment()) {
           needOnClick = (event) => this.handleClick(event, day)
-          validDate = `${this.isSelected(day)} habit-dates valid-date`
+          validDate.push("valid-date")
+        } else {
+          validDate.push("unselectable-date")
         }
-        cells.push(<Table.Cell className={validDate} key={`day #${j}`} onClick={needOnClick}>{day}</Table.Cell>)
+        cells.push(<Table.Cell className={validDate.join(" ")} key={`day #${j}`} onClick={needOnClick}>{day}</Table.Cell>)
       }
       all.push(<Table.Row cells={cells} className="month-table-body" />)
     }
@@ -121,7 +127,18 @@ class CurrentWeek extends React.Component {
     return(
       <div>
         <h3 className="month-header">{this.state.now.format("MMMM")}</h3>
-        <Table>
+        <Table celled>
+          <Table.Header>
+            <Table.Row>
+              <Table.HeaderCell textAlign="center" id="month-table-header">Mon</Table.HeaderCell>
+              <Table.HeaderCell textAlign="center" id="month-table-header">Tue</Table.HeaderCell>
+              <Table.HeaderCell textAlign="center" id="month-table-header">Wed</Table.HeaderCell>
+              <Table.HeaderCell textAlign="center" id="month-table-header">Thu</Table.HeaderCell>
+              <Table.HeaderCell textAlign="center" id="month-table-header">Fri</Table.HeaderCell>
+              <Table.HeaderCell textAlign="center" id="month-table-header">Sat</Table.HeaderCell>
+              <Table.HeaderCell textAlign="center" id="month-table-header">Sun</Table.HeaderCell>
+            </Table.Row>
+          </Table.Header>
           <Table.Body>
             {this.renderTable()}
           </Table.Body>
