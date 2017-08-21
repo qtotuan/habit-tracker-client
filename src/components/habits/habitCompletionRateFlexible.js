@@ -29,7 +29,12 @@ export default function getCompletionRate(dates, target, currentDay) {
 
   function result(dates, target) {
     let num = getNumberCompleted(dates)
-    return [Math.floor((num / target) * 100), num]
+    let completionRate = Math.floor((num / target) * 100)
+    if (completionRate > 100) {
+      return [100, num]
+    } else {
+      return [completionRate, num]
+    }
   }
 
   return result(dates, target)

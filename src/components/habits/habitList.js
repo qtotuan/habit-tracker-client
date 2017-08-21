@@ -50,7 +50,7 @@ class HabitList extends React.Component {
     return(
       <Container>
         <h1>Habits</h1>
-        <Dropdown label='Category' name='category' fluid search selection options={options} onChange={this.handleDropdownChange} />
+        <Dropdown label='Category' placeholder='Select Category' name='category' fluid search selection options={options} onChange={this.handleDropdownChange} />
 
         <br/><br/>
 
