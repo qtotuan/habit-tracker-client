@@ -88,8 +88,17 @@ class CurrentWeek extends React.Component {
 
             <Table.Row className="current-week-table last-row">
             {week.map( day => {
+              console.log("day is ----------->", day);
+              let needOnClick = false
+              let validDate = [`${this.isSelected(day)} habit-dates`]
               let dayDisplay = parseInt(day.split("-")[2])
-              return <Table.Cell className={`${this.isSelected(day)} habit-dates`} key={day} onClick={(event) => this.handleClick(event, day)}>{dayDisplay}</Table.Cell>
+              if (moment(day) <= moment()) {
+                needOnClick = (event) => this.handleClick(event, day)
+                validDate.push("valid-date")
+              } else {
+                validDate.push("unselectable-date")
+              }
+              return <Table.Cell className={validDate.join(" ")} key={day} onClick={needOnClick}>{dayDisplay}</Table.Cell>
             })}
             </Table.Row>
           </Table.Body>
