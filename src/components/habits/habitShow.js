@@ -26,7 +26,8 @@ class HabitShow extends React.Component {
   render() {
     let category = "";
     if(this.props.currentHabit !== undefined && this.props.currentHabit.category !== undefined){
-      category = this.props.currentHabit.category.name;
+      category = this.props.currentHabit.category.name
+      category = category[0].toUpperCase() + category.substr(1)
     }
 
     return(

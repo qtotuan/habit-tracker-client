@@ -27,6 +27,7 @@ class HabitForm extends React.Component {
       description: '',
       category: '',
       redirect: false,
+      newCategory: '',
       frequency: 0
     }
   }
@@ -68,16 +69,17 @@ class HabitForm extends React.Component {
           <Form.Field label='Title' control='input' placeholder='Title' name='title' onChange={this.handleChange} required />
           <Form.Field label='Description' control='input' placeholder='Description' name='description' onChange={this.handleChange}/>
           <Form.Dropdown label='Category' placeholder='Category' name='category' fluid search selection options={this.props.categories} onChange={this.handleDropdownChange} required />
+          <Form.Field label='Or create a new category:' control='input' placeholder='Give your new category a name' name='newCategory' onChange={this.handleChange} />
           <Form.Dropdown label='I want to complete this habit x times per week' placeholder='Frequency' name='frequency' compact selection options={optionsFrequency} onChange={this.handleDropdownChange} required />
           <br/><br/>
           <Button type='submit'>Submit</Button><br /><br />
           <Link to="/habits">Cancel</Link>
           <Divider hidden />
         </Form>
-        {this.state.user}<br/><br/>
         {this.state.title}<br/><br/>
         {this.state.description}<br/><br/>
         {this.state.category}<br/><br/>
+        {this.state.newCategory}<br/><br/>
         {this.state.frequency}<br/><br/>
       </Container>
     )
