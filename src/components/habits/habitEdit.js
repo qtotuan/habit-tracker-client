@@ -43,16 +43,17 @@ class HabitEdit extends React.Component {
     }
 
     let habitId = window.location.pathname.split("/")[2]
-    this.props.fetchHabits(this.props.setCurrentHabit, habitId, this.updateState)
+    // redux thunk
+    this.props.fetchHabits(this.props.setCurrentHabit, habitId, this.updateState.bind(this))
   }
 
-  updateState = () => {
+  updateState(){
     // debugger
     this.setState({
       title: this.props.currentHabit.title,
       description: this.props.currentHabit.description,
       frequency: this.props.currentHabit.frequency,
-      // category: this.props.category.name
+      category: this.props.currentHabit.category.name
     })
   }
 

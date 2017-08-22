@@ -1,6 +1,6 @@
 import fetch from 'isomorphic-fetch';
 
-export default function fetchHabits() {
+export default function fetchCategories() {
   return (dispatch) => {
     dispatch({ type: "FETCHING_CATEGORIES" });
     return fetch('http://localhost:3000/api/v1/categories')

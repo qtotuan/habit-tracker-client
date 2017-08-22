@@ -19,6 +19,8 @@ export default function fetchHabits(callback, habitId, callback2) {
           func(habit)
         }
         if (func2) {
+          // dispatch()
+          // 
           callback2()
         }
       })
