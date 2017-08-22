@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import Habit from './habit'
 import { connect } from 'react-redux'
 import CurrentWeek from '../calendar/currentWeek'
-import { Progress, Container, Button, Dropdown } from 'semantic-ui-react'
+import { Progress, Container, Button, Dropdown, Icon } from 'semantic-ui-react'
 import completionRate from './habitCompletionRateFlexible'
 import FetchCategories from '../../actions/fetchCategories'
 import { bindActionCreators } from 'redux'
@@ -24,7 +24,7 @@ class HabitList extends React.Component {
     super(props)
 
     this.state = {
-      category: "",
+      selectedCategory: "",
       options: []
     }
   }
@@ -42,16 +42,23 @@ class HabitList extends React.Component {
     })
   }
 
+  handleClearFilter = () => {
+    this.setState({
+      selectedCategory: ""
+    })
+  }
+
   render() {
 
     let sortedHabits = this.props.habits.sort((a, b) => {
       return a.id - b.id
     })
 
+
     //filter by category
-    if (this.state.category !== "") {
+    if (this.state.selectedCategory !== "") {
       sortedHabits = sortedHabits.filter( habit => {
-        return habit.category.name === this.state.category
+        return habit.category.name === this.state.selectedCategory
       })
     }
 
@@ -62,10 +69,11 @@ class HabitList extends React.Component {
           <Dropdown
             label='Category'
             placeholder='Select Category'
-            name='category'
-            fluid search selection options={this.props.categories}
+            name='selectedCategory'
+            search selection options={this.props.categories}
             onChange={this.handleDropdownChange}
           />
+        <Button onClick={this.handleClearFilter} icon="remove"></Button>
 
 
         <br/><br/>
