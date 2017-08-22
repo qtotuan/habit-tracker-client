@@ -1,10 +1,11 @@
 import React from 'react'
 import { connect } from 'react-redux'
-// import { Card, Icon, Image, Item } from 'semantic-ui-react'
+// import defaultImg from '../images/habit-default.jpeg'
 
 
 const baseUrl = "http://api.giphy.com/v1/gifs/search"
 const apiKey = "b01280d801ae455d8a12bc41a19d3cb8"
+const defaultImgUrl = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTf6AhpwPoP052VlbDRg5d5WK4ARHc1D0u2CwWKU-tbhjcFsMqL'
 
 class HabitGif extends React.Component {
 
@@ -22,10 +23,14 @@ class HabitGif extends React.Component {
       fetch(`${baseUrl}?q=+${this.props.searchTerm}+&api_key=${apiKey}`)
       .then( res => res.json() )
       .then( json => {
-        console.log("-------------->", json);
-        let rand = Math.floor(Math.random() * 25)
+        console.log("-------------->", json)
+        let imgUrl = defaultImgUrl
+        if (json.data.length > 0) {
+          let rand = Math.floor(Math.random() * 25)
+          imgUrl = json.data[rand].images.downsized.url
+        }
         this.setState({
-          currentGifUrl: json.data[rand].images.downsized.url,
+          currentGifUrl: imgUrl,
           gifWasfetched: true
         })
       })

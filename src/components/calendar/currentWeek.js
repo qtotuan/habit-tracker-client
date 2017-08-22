@@ -88,7 +88,6 @@ class CurrentWeek extends React.Component {
 
             <Table.Row className="current-week-table last-row">
             {week.map( day => {
-              console.log("day is ----------->", day);
               let needOnClick = false
               let validDate = [`${this.isSelected(day)} habit-dates`]
               let dayDisplay = parseInt(day.split("-")[2])

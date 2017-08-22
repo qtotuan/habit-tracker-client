@@ -8,17 +8,13 @@ const options = [
   { key: 'relationship', text: 'Relationship', value: 'relationship' }
 ]
 
-class categoryButton extends React.Component {
+class CategoryButton extends React.Component {
 
   constructor(props) {
     super(props)
 
     this.state = {
-      user_id: this.props.currentUser_id,
-      title: this.props.currentHabit.title,
-      description: this.props.currentHabit.description,
-      category_id: this.props.currentHabit.category.id,
-      redirect: false
+      category: ''
     }
   }
 
@@ -30,8 +26,18 @@ class categoryButton extends React.Component {
     })
   }
 
-  <Dropdown placeholder="Select Category" name='category' compact selection options={options} onChange={this.handleDropdownChange} />
+  render() {
+    return(
+      <Dropdown
+        label='Category'
+        placeholder='Select Category'
+        name='category'
+        fluid search selection options={options}
+        onChange={this.handleDropdownChange}
+      />
+    )
+  }
 
 }
 
-export default categoryButton
+export default CategoryButton

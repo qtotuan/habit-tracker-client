@@ -5,23 +5,32 @@ import { connect } from 'react-redux'
 import CurrentWeek from '../calendar/currentWeek'
 import { Progress, Container, Button, Dropdown } from 'semantic-ui-react'
 import completionRate from './habitCompletionRateFlexible'
+import FetchCategories from '../../actions/fetchCategories'
+import { bindActionCreators } from 'redux'
+// import CategoryButton from '../categories/categoryButton'
 
 
 
-const options = [
-  { key: 'health', text: 'Health', value: 'health' },
-  { key: 'finance', text: 'Finance', value: 'finance' },
-  { key: 'relationship', text: 'Relationship', value: 'relationship' }
-]
+// const options = [
+//   { key: 'health', text: 'Health', value: 'health' },
+//   { key: 'finance', text: 'Finance', value: 'finance' },
+//   { key: 'relationship', text: 'Relationship', value: 'relationship' }
+// ]
+
+
 
 class HabitList extends React.Component {
-
   constructor(props) {
     super(props)
 
     this.state = {
-      category: ""
+      category: "",
+      options: []
     }
+  }
+
+  componentDidMount() {
+    this.props.fetchCategories()
   }
 
 
@@ -31,10 +40,10 @@ class HabitList extends React.Component {
     this.setState({
       [key]: value
     })
-    // debugger
   }
 
   render() {
+
     let sortedHabits = this.props.habits.sort((a, b) => {
       return a.id - b.id
     })
@@ -46,11 +55,18 @@ class HabitList extends React.Component {
       })
     }
 
-    // debugger
     return(
       <Container>
         <h1>Habits</h1>
-        <Dropdown label='Category' placeholder='Select Category' name='category' fluid search selection options={options} onChange={this.handleDropdownChange} />
+          <br/><br/>
+          <Dropdown
+            label='Category'
+            placeholder='Select Category'
+            name='category'
+            fluid search selection options={this.props.categories}
+            onChange={this.handleDropdownChange}
+          />
+
 
         <br/><br/>
 
@@ -79,4 +95,17 @@ class HabitList extends React.Component {
 
 }
 
-export default HabitList
+
+function mapStateToProps(state) {
+  return {
+    categories: state.categories
+  }
+}
+
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators({
+    fetchCategories: FetchCategories
+  }, dispatch)
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(HabitList)

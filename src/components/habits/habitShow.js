@@ -20,7 +20,7 @@ class HabitShow extends React.Component {
   }
 
   handleDelete = () => {
-    this.props.deleteHabit(this.props.habit)
+    this.props.deleteHabit(this.props.currentHabit)
   }
 
   render() {

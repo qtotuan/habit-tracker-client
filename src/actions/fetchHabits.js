@@ -1,8 +1,9 @@
 import fetch from 'isomorphic-fetch';
 
-export default function fetchHabits(callback, habitId) {
+export default function fetchHabits(callback, habitId, callback2) {
   let id = habitId
   let func = callback
+  let func2 = callback2
   return (dispatch) => {
     dispatch({ type: "FETCHING_HABITS" });
     return fetch('http://localhost:3000/api/v1/habits')
@@ -16,6 +17,9 @@ export default function fetchHabits(callback, habitId) {
       .then(habit => {
         if (func) {
           func(habit)
+        }
+        if (func2) {
+          callback2()
         }
       })
   }

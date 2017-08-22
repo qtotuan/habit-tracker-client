@@ -4,12 +4,8 @@ import { BrowserRouter as Router, Route, Redirect, Link } from 'react-router-dom
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import CreateHabit from '../../actions/createHabit'
+import FetchCategories from '../../actions/fetchCategories'
 
-const optionsCategory = [
-  { key: 'health', text: 'Health', value: 'health' },
-  { key: 'finance', text: 'Finance', value: 'finance' },
-  { key: 'relationship', text: 'Relationship', value: 'relationship' }
-]
 
 const optionsFrequency = [
   { key: '1', text: '1', value: 1 },
@@ -32,6 +28,12 @@ class HabitForm extends React.Component {
       category: '',
       redirect: false,
       frequency: 0
+    }
+  }
+
+  componentDidMount() {
+    if (this.props.categories.length === 0) {
+      this.props.fetchCategories()
     }
   }
 
@@ -63,10 +65,10 @@ class HabitForm extends React.Component {
         {this.state.redirect? <Redirect to='/habits'/> : null }
         <h1>Create A New Habit</h1>
         <Form onSubmit={this.handleSubmit}>
-          <Form.Field label='Title' control='input' placeholder='Title' name='title' onChange={this.handleChange}/>
+          <Form.Field label='Title' control='input' placeholder='Title' name='title' onChange={this.handleChange} required />
           <Form.Field label='Description' control='input' placeholder='Description' name='description' onChange={this.handleChange}/>
-          <Form.Dropdown label='Category' placeholder='Category' name='category' fluid search selection options={optionsCategory} onChange={this.handleDropdownChange} />
-          <Form.Dropdown label='I want to complete this habit x times per week' placeholder='Frequency' name='frequency' compact selection options={optionsFrequency} onChange={this.handleDropdownChange} />
+          <Form.Dropdown label='Category' placeholder='Category' name='category' fluid search selection options={this.props.categories} onChange={this.handleDropdownChange} required />
+          <Form.Dropdown label='I want to complete this habit x times per week' placeholder='Frequency' name='frequency' compact selection options={optionsFrequency} onChange={this.handleDropdownChange} required />
           <br/><br/>
           <Button type='submit'>Submit</Button><br /><br />
           <Link to="/habits">Cancel</Link>
@@ -84,13 +86,15 @@ class HabitForm extends React.Component {
 
 function mapDispatchToProps(dispatch) {
   return bindActionCreators({
-    createHabit: CreateHabit
+    createHabit: CreateHabit,
+    fetchCategories: FetchCategories
   }, dispatch)
 }
 
 function mapStateToProps(state) {
   return {
-    currentUser: state.currentUser
+    currentUser: state.currentUser,
+    categories: state.categories
   }
 }
 

@@ -4,13 +4,15 @@ import { BrowserRouter as Router, Route, Redirect, Link} from 'react-router-dom'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import UpdateHabit from '../../actions/updateHabit'
+import FetchCategories from '../../actions/fetchCategories'
 import SetCurrentHabit from '../../actions/setCurrentHabit'
+import FetchHabits from '../../actions/fetchHabits'
 
-const options = [
-  { key: 'health', text: 'Health', value: 'health' },
-  { key: 'finance', text: 'Finance', value: 'finance' },
-  { key: 'relationship', text: 'Relationship', value: 'relationship' }
-]
+// const options = [
+//   { key: 'health', text: 'Health', value: 'health' },
+//   { key: 'finance', text: 'Finance', value: 'finance' },
+//   { key: 'relationship', text: 'Relationship', value: 'relationship' }
+// ]
 
 const optionsFrequency = [
   { key: '1', text: '1', value: 1 },
@@ -27,12 +29,31 @@ class HabitEdit extends React.Component {
     super(props)
 
     this.state = {
-      user_id: this.props.currentUser_id,
-      title: this.props.currentHabit.title,
-      description: this.props.currentHabit.description,
-      category_id: this.props.currentHabit.category.id,
+      title: "",
+      description: "",
+      category: "",
+      frequency: this.props.currentHabit.frequency,
       redirect: false
     }
+  }
+
+  componentWillMount() {
+    if (this.props.categories.length === 0) {
+      this.props.fetchCategories()
+    }
+
+    let habitId = window.location.pathname.split("/")[2]
+    this.props.fetchHabits(this.props.setCurrentHabit, habitId, this.updateState)
+  }
+
+  updateState = () => {
+    // debugger
+    this.setState({
+      title: this.props.currentHabit.title,
+      description: this.props.currentHabit.description,
+      frequency: this.props.currentHabit.frequency,
+      // category: this.props.category.name
+    })
   }
 
 
@@ -59,15 +80,17 @@ class HabitEdit extends React.Component {
   }
 
   render() {
+
+
     return(
       <Container>
         {this.state.redirect? <Redirect to={`/habits/${this.props.currentHabit.id}`}/> : null }
-        <h1>Edit {this.props.currentHabit.title}</h1>
+        <h1>Edit {this.state.title}</h1>
         <Form onSubmit={this.handleSubmit}>
           <Form.Field label='Title' control='input' value={this.state.title} name='title' onChange={this.handleChange}/>
           <Form.Field label='Description' control='input' value={this.state.description} name='description' onChange={this.handleChange}/>
-          <Form.Dropdown label='Category' placeholder={this.props.currentHabit.category.name} name='category' fluid search selection options={options} onChange={this.handleDropdownChange} />
-          <Form.Dropdown label='I want to complete this habit x times per week' placeholder={this.props.currentHabit.frequency} name='frequency' compact selection options={optionsFrequency} onChange={this.handleDropdownChange} />
+          <Form.Dropdown label='Category' name='category' value={this.state.category} fluid search selection options={this.props.categories} onChange={this.handleDropdownChange} />
+          <Form.Dropdown label='I want to complete this habit x times per week' value={this.state.frequency} name='frequency' compact selection options={optionsFrequency} onChange={this.handleDropdownChange} />
           <Button type='submit'>Submit</Button>
           <Link to={`/habits/${this.props.currentHabit.id}`}>Cancel</Link>
           <Divider hidden />
@@ -84,14 +107,17 @@ class HabitEdit extends React.Component {
 function mapDispatchToProps(dispatch) {
   return bindActionCreators({
     updateHabit: UpdateHabit,
-    setCurrentHabit: SetCurrentHabit
+    setCurrentHabit: SetCurrentHabit,
+    fetchCategories: FetchCategories,
+    fetchHabits: FetchHabits
   }, dispatch)
 }
 
 function mapStateToProps(state) {
   return {
     currentUser: state.currentUser,
-    currentHabit: state.currentHabit
+    currentHabit: state.currentHabit,
+    categories: state.categories
   }
 }
 
