@@ -65,18 +65,17 @@ class HabitList extends React.Component {
     return(
       <Container>
         <h1>Habits</h1>
-          <br/><br/>
-          <Dropdown
-            label='Category'
-            placeholder='Select Category'
-            name='selectedCategory'
-            search selection options={this.props.categories}
-            onChange={this.handleDropdownChange}
-          />
-        <Button onClick={this.handleClearFilter} icon="remove"></Button>
-
-
-        <br/><br/>
+          <div className='filter-wrapper'>
+            <Dropdown
+              label='Category'
+              placeholder='Select Category'
+              name='selectedCategory'
+              search selection options={this.props.categories}
+              onChange={this.handleDropdownChange}
+            />
+            <span className='force-margin'/>
+            <Button onClick={this.handleClearFilter} icon="remove"></Button>
+          </div>
 
         {sortedHabits.map( habit => {
           return (

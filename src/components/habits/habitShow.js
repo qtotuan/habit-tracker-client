@@ -31,12 +31,34 @@ class HabitShow extends React.Component {
     }
 
     return(
-      <Container>
-        <section className="habit-details">
-          <h1>{this.props.currentHabit.title}</h1>
+      <Container className='habit-show-container'>
+
+          <h1 className='habit-title'>{this.props.currentHabit.title}</h1>
           <Gif searchTerm={this.props.currentHabit.title}/>
-          <p>Description: {this.props.currentHabit.description}</p>
-          <p>Category: {category}</p>
+
+          <div className='card-container'>
+            <Card className='semantic-card center-stuff'>
+              <Card.Content>
+                <Card.Header>
+                  {this.props.currentHabit.title}
+                </Card.Header>
+                <Card.Meta>
+                  <span className='date'>
+                    {category}
+                  </span>
+                </Card.Meta>
+                <Card.Description>
+                  {this.props.currentHabit.description}
+                </Card.Description>
+              </Card.Content>
+            </Card>
+          </div>
+
+          <section className="habit-details">
+
+          <p>{this.props.currentHabit.description}</p>
+          <p className='detail-titles'>Category</p>
+          <p>{category}</p>
           <p>{`Your goal is to perform this habit ${this.props.currentHabit.frequency} time(s) per week`}</p>
         </section>
 
@@ -46,12 +68,14 @@ class HabitShow extends React.Component {
 
         <br /><br />
 
-        <Chart datesCompleted={this.props.currentHabit.dates_completed} target={this.props.currentHabit.frequency}/>
+        <div className='chart-container'>
+          <Chart datesCompleted={this.props.currentHabit.dates_completed} target={this.props.currentHabit.frequency}/>
+        </div>
 
         <br /><br />
 
-        <Button><Link to={`${this.props.match.url}/edit`}>Edit</Link><br /><br /></Button>
-        <Button><Link to='/habits' onClick={this.handleDelete}>Delete</Link><br /><br /></Button>
+        <Button><Link to={`${this.props.match.url}/edit`}>Edit</Link></Button>
+        <Button><Link to='/habits' onClick={this.handleDelete}>Delete</Link></Button>
 
         <br /><br />
       </Container>
