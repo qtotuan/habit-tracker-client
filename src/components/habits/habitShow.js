@@ -13,6 +13,11 @@ import Chart from '../dashboard/chart'
 import Gif from './habitGif'
 
 
+const grammarBook = {
+  1: "ONCE",
+  2: "TWICE"
+}
+
 class HabitShow extends React.Component {
   componentWillMount() {
     let habitId = this.props.location.pathname.split("/")[2]
@@ -21,6 +26,14 @@ class HabitShow extends React.Component {
 
   handleDelete = () => {
     this.props.deleteHabit(this.props.currentHabit)
+  }
+
+  getPhrase = frequency => {
+    if (frequency < 3) {
+      return `${grammarBook[frequency]}`
+    } else {
+      return `${frequency} times`
+    }
   }
 
   render() {
@@ -33,7 +46,7 @@ class HabitShow extends React.Component {
     return(
       <Container className='habit-show-container'>
 
-          <h1 className='habit-title'>{this.props.currentHabit.title}</h1>
+          {/* <h1 className='habit-title'>{this.props.currentHabit.title}</h1> */}
           <Gif searchTerm={this.props.currentHabit.title}/>
 
           <div className='card-container'>
@@ -54,12 +67,11 @@ class HabitShow extends React.Component {
             </Card>
           </div>
 
-          <section className="habit-details">
+          <section className="habit-details ui container">
 
-          <p>{this.props.currentHabit.description}</p>
-          <p className='detail-titles'>Category</p>
-          <p>{category}</p>
-          <p>{`Your goal is to perform this habit ${this.props.currentHabit.frequency} time(s) per week`}</p>
+          <div className='ui sub header frequency'>YOUR GOAL:</div>
+          <div className='ui medium header frequency green'>{this.getPhrase(this.props.currentHabit.frequency)} PER WEEK</div>
+
         </section>
 
         <br /><br />
@@ -84,7 +96,6 @@ class HabitShow extends React.Component {
 }
 
 function mapStateToProps(state, ownProps) {
-  // debugger
   const habit = state.habits.find( habit => habit.id.toString() === ownProps.match.params.habitId)
   console.log("mapStateToProps", habit)
   let result = (habit) ? { currentHabit: habit} : { currentHabit: {title: "Not found"} }

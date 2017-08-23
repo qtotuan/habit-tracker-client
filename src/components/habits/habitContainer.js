@@ -32,7 +32,6 @@ class HabitContainer extends React.Component {
     })
     .then(res => res.json())
     .then(json => {
-      console.log("-------------->", json);
       let user = json.find( user => user.email === localStorage.getItem('email'))
       this.props.setUser(user)
     })

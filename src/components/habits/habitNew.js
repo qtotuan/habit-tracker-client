@@ -33,9 +33,7 @@ class HabitForm extends React.Component {
   }
 
   componentDidMount() {
-    if (this.props.categories.length === 0) {
-      this.props.fetchCategories()
-    }
+    this.props.fetchCategories()
   }
 
   handleSubmit = (event) => {

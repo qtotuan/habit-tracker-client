@@ -1,4 +1,5 @@
 import fetch from 'isomorphic-fetch';
+import fetchCategories from './fetchCategories'
 
 export default function createHabit(state) {
   let config = {
@@ -17,7 +18,9 @@ export default function createHabit(state) {
     return fetch(`http://localhost:3000/api/v1/habits`, config)
       .then(response => response.json())
       .then(json => {
-        dispatch({ type: 'UPDATE_HABITS', payload: json })
+        dispatch({
+          type: 'UPDATE_HABITS', payload: json
+         })
         console.log("Habit was updated:", json);
       })
   }

@@ -7,16 +7,6 @@ import { Progress, Container, Button, Dropdown, Icon } from 'semantic-ui-react'
 import completionRate from './habitCompletionRateFlexible'
 import FetchCategories from '../../actions/fetchCategories'
 import { bindActionCreators } from 'redux'
-// import CategoryButton from '../categories/categoryButton'
-
-
-
-// const options = [
-//   { key: 'health', text: 'Health', value: 'health' },
-//   { key: 'finance', text: 'Finance', value: 'finance' },
-//   { key: 'relationship', text: 'Relationship', value: 'relationship' }
-// ]
-
 
 
 class HabitList extends React.Component {

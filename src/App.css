@@ -134,3 +134,15 @@ img {
   margin: 50% !important;
   margin: 0 auto !important;
 }
+
+img {
+  margin: 30px
+}
+
+.frequency {
+  margin: 30px !important;
+}
+
+.red-highlight {
+  color: red
+}
