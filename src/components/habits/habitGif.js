@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 // import defaultImg from '../images/habit-default.jpeg'
 
 
-const baseUrl = "http://api.giphy.com/v1/gifs/search"
+const baseUrl = "https://api.giphy.com/v1/gifs/search"
 const apiKey = "b01280d801ae455d8a12bc41a19d3cb8"
 const defaultImgUrl = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTf6AhpwPoP052VlbDRg5d5WK4ARHc1D0u2CwWKU-tbhjcFsMqL'
 
