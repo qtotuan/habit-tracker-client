@@ -57,7 +57,7 @@ class CurrentWeek extends React.Component {
       body: JSON.stringify({ selectedDate: day})
     }
 
-    fetch(`https://sheltered-reef-37337.herokuapp.com/api/v1/habits/${this.props.habit.id}`, config)
+    fetch(`http://localhost:3000/api/v1/habits/${this.props.habit.id}`, config)
     .then(res => res.json())
     .then(habit => {
 

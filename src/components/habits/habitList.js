@@ -11,8 +11,7 @@ import { bindActionCreators } from 'redux'
 
 class HabitList extends React.Component {
   constructor(props) {
-    super(props)
-
+    super()
     this.state = {
       selectedCategory: "",
       options: []

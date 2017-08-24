@@ -1,4 +1,4 @@
-const baseUrl = 'https://sheltered-reef-37337.herokuapp.com/api/v1'
+const baseUrl = 'http://localhost:3000/api/v1'
 
 export default class AuthAdapter {
   static login (loginParams) {
