@@ -10,7 +10,7 @@ class Chart extends React.Component {
     const data = getData(this.props.datesCompleted, this.props.target)
   	return (
       <Container className="chart">
-        <h3>Completion Rates</h3>
+        <h3>Completion Rates (%)</h3>
         <LineChart className='center-stuff' width={600} height={300} data={data}
           margin={{top: 5, right: 30, left: 20, bottom: 5}}>
           <XAxis dataKey="name"/>
