@@ -27,7 +27,7 @@ class HabitContainer extends React.Component {
 
   findUser() {
     // debugger
-    fetch(`http://localhost:3000/api/v1/users`, {
+    fetch(`https://sheltered-reef-37337.herokuapp.com/api/v1/users`, {
       method: 'GET',
       headers: headers()
     })
