@@ -96,10 +96,6 @@ class HabitEdit extends React.Component {
           <Link to={`/habits/${this.props.currentHabit.id}`}>Cancel</Link>
           <Divider hidden />
         </Form>
-        {this.state.user}<br/><br/>
-        {this.state.title}<br/><br/>
-        {this.state.description}<br/><br/>
-        {this.state.category}<br/><br/>
       </Container>
     )
   }

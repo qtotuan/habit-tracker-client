@@ -74,11 +74,6 @@ class HabitForm extends React.Component {
           <Link to="/habits">Cancel</Link>
           <Divider hidden />
         </Form>
-        {this.state.title}<br/><br/>
-        {this.state.description}<br/><br/>
-        {this.state.category}<br/><br/>
-        {this.state.newCategory}<br/><br/>
-        {this.state.frequency}<br/><br/>
       </Container>
     )
   }
