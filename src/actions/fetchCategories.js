@@ -1,12 +1,23 @@
 import fetch from 'isomorphic-fetch';
 
+
+export function addCategory(category) {
+
+  return {
+    type: "ADD_CATEGORY",
+    payload: { key: category, text: category, value: category }
+
+  }
+}
+
 export default function fetchCategories() {
   // debugger
   return (dispatch) => {
     dispatch({ type: "FETCHING_CATEGORIES" });
-    return fetch('http://localhost:3000/api/v1/categories')
+    return fetch('https://sheltered-reef-37337.herokuapp.com/api/v1/categories')
       .then(response => response.json())
       .then(json => {
+
         let categories = []
         json.forEach( category => {
           categories.push({
@@ -15,6 +26,7 @@ export default function fetchCategories() {
             value: category.name
           })
         }) //end for each
+        console.log("GOT ALL THE NEW CATS", categories)
         dispatch({ type: 'ADD_CATEGORIES', payload: categories})
       }) //end .then
   }

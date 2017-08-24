@@ -2,6 +2,7 @@ import React from 'react'
 import Habit from './habit'
 import { connect } from 'react-redux'
 import fetchHabits from '../../actions/fetchHabits'
+import fetchCategories from '../../actions/fetchCategories'
 import setUser from '../../actions/setUser'
 import { bindActionCreators } from 'redux'
 import HabitList from './habitList'
@@ -26,7 +27,7 @@ class HabitContainer extends React.Component {
 
   findUser() {
     // debugger
-    fetch(`http://localhost:3000/api/v1/users`, {
+    fetch(`https://sheltered-reef-37337.herokuapp.com/api/v1/users`, {
       method: 'GET',
       headers: headers()
     })
@@ -51,16 +52,21 @@ class HabitContainer extends React.Component {
 
   render() {
     const { match, habits } = this.props;
-
+    // have api only give back current user habits
     let filteredHabits = habits.filter( habit => {
       // debugger
       return habit.user.email === localStorage.getItem('email')
     })
+    let categories = habits.map((habit) => {
+      return habit.category.name
+    })
+    let uniq = a => [...new Set(a)];
+    let uniqueCategories = uniq(categories).map((cat) => ({key: cat, text: cat, value: cat}))
 
     return(
       <div>
         <Switch>
-          <Route exact path={`${match.url}`} render={() => this.isLoggedIn() ? <HabitList habits={filteredHabits} /> : <Redirect to="/" />} />
+          <Route exact path={`${match.url}`} render={() => this.isLoggedIn() ? <HabitList habits={filteredHabits} categories={uniqueCategories} /> : <Redirect to="/" />} />
           <Route path={`${match.url}/new`} render={() => this.isLoggedIn() ? <ConnectedHabitForm /> : <Redirect to="/" />} />
           <Route path={`${match.url}/:habitId/edit`} render={() => this.isLoggedIn() ? <ConnectedHabitEdit /> : <Redirect to="/" />} />
           <Route path={`${match.url}/:habitId`} component={ConnectedHabitShow} />
@@ -73,6 +79,7 @@ class HabitContainer extends React.Component {
 function mapStateToProps(state) {
   return {
     habits: state.habits,
+    categories: state.categories,
     currentUser: state.currentUser
   }
 }
@@ -80,6 +87,7 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
   return {
     fetchHabits: bindActionCreators(fetchHabits, dispatch),
+    fetchCategories: bindActionCreators(fetchCategories, dispatch),
     setUser: bindActionCreators(setUser, dispatch)
   }
 }

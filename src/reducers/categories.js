@@ -4,6 +4,13 @@ export default function categories(state = [], action) {
       // debugger
       return action.payload
     }
+
+    case 'ADD_CATEGORY': {
+      console.log("Add Category state", state)
+      console.log("Add Category",action.payload)
+      return [...state, action.payload]
+    }
+
     default: return state
   }
 }

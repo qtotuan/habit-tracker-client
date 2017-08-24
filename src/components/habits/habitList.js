@@ -20,6 +20,7 @@ class HabitList extends React.Component {
   }
 
   componentDidMount() {
+    console.log("ComponentDidMount: fetching Categories")
     this.props.fetchCategories()
   }
 
@@ -94,8 +95,9 @@ class HabitList extends React.Component {
 
 
 function mapStateToProps(state) {
+  console.log("Mapping State to Props", state.categories)
   return {
-    categories: state.categories
+    // categories: state.categories
   }
 }
 
