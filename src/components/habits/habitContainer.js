@@ -20,7 +20,7 @@ class HabitContainer extends React.Component {
     }
 
     // debugger
-    if (this.props.currentUser.name === undefined ) {
+    if (this.props.currentUser.name === undefined && localStorage.getItem('email') !== null) {
       this.findUser()
     }
   }
