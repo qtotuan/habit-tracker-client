@@ -5,22 +5,37 @@ Tracking habits is crucial when you want to establish new ones. It takes up to t
 
 
 # FEATURES
-Manage habits: create unlimited habits, edit/delete existing ones
-View habit streaks in a eekly and monthly calendar
-See status in a dashboard with weekly completion rates
-Check off habits completed for each day
-Filtering for habits by category, persistent filters
-Fuzzy Search
-Random gif of the moment
+* Manage habits: create unlimited habits, edit/delete existing ones
+
+* View habit streaks in a eekly and monthly calendar
+
+* See status in a dashboard with weekly completion rates
+
+* Check off habits completed for each day
+
+* Filtering for habits by category, persistent filters
+
+* Fuzzy Search
+
+* Random gif of the moment
+
 
 
 # TECHNOLOGY
-Web Framework: Rails
-Front End: React
-Database: Postgres
-Deployment: Heroku
-State Management: Redux
-AJAX Handler: redux-thunk
-Frontend design: Semantic
-Data visualization: Recharts
-Make it a mobile app that can send reminders
+* Web Framework: Rails
+
+* Front End: React
+
+* Database: Postgres
+
+* Deployment: Heroku
+
+* State Management: Redux
+
+* AJAX Handler: redux-thunk
+
+* Frontend design: Semantic
+
+* Data visualization: Recharts
+
+* Make it a mobile app that can send reminders
