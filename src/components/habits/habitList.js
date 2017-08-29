@@ -9,11 +9,7 @@ import FetchCategories from '../../actions/fetchCategories'
 import { bindActionCreators } from 'redux'
 import { Steps, Hints } from 'intro.js-react'
 
-
-
 class HabitList extends React.Component {
-
-
   constructor(props) {
     super()
     this.state = {

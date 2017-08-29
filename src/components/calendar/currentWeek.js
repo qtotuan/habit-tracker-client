@@ -82,7 +82,7 @@ class CurrentWeek extends React.Component {
             <Table.Row className="current-week-table">
             {week.map( day => {
               let weekday = moment(day)
-              return <Table.Cell className="weekdays" key={day} onClick={(event) => this.handleClick(event, day)}>{weekday.format("dd")}</Table.Cell>
+              return <Table.Cell className="weekdays" key={day}>{weekday.format("dd")}</Table.Cell>
               })}
             </Table.Row>
 
