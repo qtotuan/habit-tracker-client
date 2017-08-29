@@ -7,9 +7,13 @@ import { Progress, Container, Button, Dropdown, Icon } from 'semantic-ui-react'
 import completionRate from './habitCompletionRateFlexible'
 import FetchCategories from '../../actions/fetchCategories'
 import { bindActionCreators } from 'redux'
+import { Steps, Hints } from 'intro.js-react'
+
 
 
 class HabitList extends React.Component {
+
+
   constructor(props) {
     super()
     this.state = {
@@ -39,6 +43,13 @@ class HabitList extends React.Component {
   }
 
   render() {
+    const hints = [
+      {
+        element: '.selector1',
+        hint: 'Click to create your habits here!',
+        hintPosition: 'middle-right',
+      }
+    ];
 
     let sortedHabits = this.props.habits.sort((a, b) => {
       return a.id - b.id
@@ -54,6 +65,10 @@ class HabitList extends React.Component {
 
     return(
       <Container>
+        <Hints
+          enabled={true}
+          hints={hints}
+        />
         <h1>Habits</h1>
           <div className='filter-wrapper'>
             <Dropdown
@@ -84,7 +99,7 @@ class HabitList extends React.Component {
             </div>
           )})}
 
-          <Button><Link to="/habits/new">Create New Habit</Link></Button>
+          <Button className='selector1'><Link to="/habits/new">Create New Habit</Link></Button>
           <br/><br/>
         </Container>
       )

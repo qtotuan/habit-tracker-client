@@ -6,6 +6,7 @@ import registerServiceWorker from './registerServiceWorker';
 import { Provider } from 'react-redux'
 import { store } from './store'
 import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom'
+import 'intro.js/introjs.css'
 
 import 'semantic-ui-css/semantic.min.css'
 
