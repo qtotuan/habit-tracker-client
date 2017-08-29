@@ -61,10 +61,15 @@ class HabitList extends React.Component {
 
     return(
       <Container>
-        <Hints
-          enabled={true}
-          hints={hints}
-        />
+        {this.props.currentUser !== {} && this.props.currentUser.habits && this.props.currentUser.habits.length === 0 ?
+          <Hints
+            enabled={true}
+            hints={hints}
+          />
+          :
+          null
+        }
+
         <h1>Habits</h1>
           <div className='filter-wrapper'>
             <Dropdown
@@ -107,7 +112,7 @@ class HabitList extends React.Component {
 function mapStateToProps(state) {
   console.log("Mapping State to Props", state.categories)
   return {
-    // categories: state.categories
+    currentUser: state.currentUser
   }
 }
 
