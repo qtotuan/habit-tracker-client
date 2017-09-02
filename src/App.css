@@ -1,5 +1,13 @@
+html, body {
+  width: 100%;
+  height: 100%;
+}
+
 .App {
   text-align: center;
+  padding: 100px;
+  height: 100%;
+
 }
 
 .App-logo {
@@ -145,4 +153,19 @@ img {
 
 .red-highlight {
   color: red
+}
+
+.fullscreen {
+  position: relative;
+  background-color: #D5B0AC;
+  height: 100%;
+  width: 100%
+}
+
+.title {
+  position: relative;
+  font-size: 100px;
+  border: 30px;
+  font-family: 'Shadows Into Light', cursive;
+  color: #402E2A
 }

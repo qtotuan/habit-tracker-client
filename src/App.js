@@ -10,6 +10,7 @@ import SignUpForm from './components/users/signup'
 import ConnectedHabitContainer from './components/habits/habitContainer'
 import Logout from './components/users/logout'
 import NavBar from './components/users/navBar'
+import { Helmet } from 'react-helmet'
 
 class App extends Component {
 
@@ -28,6 +29,10 @@ class App extends Component {
     return (
         <Router>
             <div>
+              <Helmet>
+                <title>Habit Tracker</title>
+                <link href="https://fonts.googleapis.com/css?family=Shadows+Into+Light" rel="stylesheet" />
+              </Helmet>
               <Route path="/habits" component={NavBar}/>
               <Route exact path='/' render={()=> this.isLoggedIn() ? <Redirect to="/habits"/> : <Login /> } />
               <Route exact path='/signup' component={SignUpForm} />
