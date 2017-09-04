@@ -30,37 +30,10 @@ class HabitContainer extends React.Component {
     if (this.props.habits.length === 0) {
         this.props.fetchHabits()
     }
-
-
-
-
-    // if (this.props.currentUser.name === undefined && localStorage.getItem('email') !== null) {
-      // this.findUser()
-    // }
-  }
-
-  findUser() {
-    fetch(`http://localhost:3000/api/v1/users`, {
-      method: 'GET',
-      headers: headers()
-    })
-    .then(res => res.json())
-    .then(json => {
-      let user = json.find( user => user.email === localStorage.getItem('email'))
-      this.props.setUser(user)
-    })
-
-    function headers () {
-      return {
-        'content-type': 'application/json',
-        'accept': 'application/json',
-        'Authorization': localStorage.getItem('jwt')
-      }
-    }
   }
 
   isLoggedIn = () => {
-    return !!localStorage.getItem('jwt')
+    return !!this.props.currentUser.id
   }
 
   render() {
