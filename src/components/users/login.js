@@ -2,8 +2,8 @@ import React, { Component } from 'react'
 import { Container, Button, Divider, Form, Message, Icon } from 'semantic-ui-react'
 import { Link, Redirect } from 'react-router-dom'
 import AuthAdapter from '../../authAdapter'
-import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
 import SetUser from '../../actions/setUser'
 
 class LoginForm extends Component {
@@ -37,14 +37,13 @@ class LoginForm extends Component {
     .then( res => {
       if( res.error ){
         this.setState({ error: true })
-        console.log("do nothing")
       } else {
         localStorage.setItem('jwt', res.jwt)
         this.props.setUser(res.user)
         this.setState({ redirect: true })
       }
     })
-}
+  }
 
   render() {
     let message = <Message attached='bottom' warning>

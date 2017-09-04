@@ -20,7 +20,7 @@ class SignUpForm extends Component {
 
   handleSubmit = (event) => {
     event.preventDefault()
-    fetch('http://localhost:3000/api/v1/signup', {
+    fetch('https://sheltered-reef-37337.herokuapp.com/api/v1/signup', {
       method: 'POST',
       body: JSON.stringify(this.state),
       headers: {

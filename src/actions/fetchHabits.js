@@ -6,7 +6,7 @@ export default function fetchHabits(callback, habitId, callback2) {
   let func2 = callback2
   return (dispatch) => {
     dispatch({ type: "FETCHING_HABITS" });
-    return fetch('http://localhost:3000/api/v1/habits')
+    return fetch('https://sheltered-reef-37337.herokuapp.com/api/v1/habits')
       .then(response => response.json())
       .then( json => {
 
