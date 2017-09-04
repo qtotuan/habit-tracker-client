@@ -22,7 +22,7 @@ class App extends Component {
 
 
   isLoggedIn = () => {
-    return !!localStorage.getItem('email')
+    return !!localStorage.getItem('jwt')
   }
 
   render() {

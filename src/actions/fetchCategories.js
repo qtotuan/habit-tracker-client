@@ -13,7 +13,7 @@ export function addCategory(category) {
 export default function fetchCategories() {
   return (dispatch) => {
     dispatch({ type: "FETCHING_CATEGORIES" });
-    return fetch('https://sheltered-reef-37337.herokuapp.com/api/v1/categories')
+    return fetch('http://localhost:3000/api/v1/categories')
       .then(response => response.json())
       .then(json => {
 

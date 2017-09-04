@@ -48,7 +48,6 @@ class HabitEdit extends React.Component {
   }
 
   updateState(){
-    // debugger
     this.setState({
       title: this.props.currentHabit.title,
       description: this.props.currentHabit.description,

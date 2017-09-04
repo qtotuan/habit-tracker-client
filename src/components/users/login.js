@@ -13,34 +13,35 @@ class LoginForm extends Component {
 
     this.state = {
       email: '',
-      redirect: false
+      redirect: false,
+      password: ''
     }
   }
 
-  handleChange = (event) => {
+  handleChangeEmail = (event) => {
     this.setState({
       email: event.target.value,
       error: false
     })
   }
 
+  handleChangePassword = (event) => {
+    this.setState({
+      password: event.target.value,
+      error: false
+    })
+  }
+
   onLogin = (loginParams) => {
-    // debugger
   AuthAdapter.login(loginParams)
     .then( res => {
       if( res.error ){
         this.setState({ error: true })
         console.log("do nothing")
       } else {
-        localStorage.setItem('email', res.user.email)
+        localStorage.setItem('jwt', res.jwt)
         this.props.setUser(res.user)
         this.setState({ redirect: true })
-        console.log("You are logged in!");
-        // this.setState({
-        //   auth:{
-        //     currentUser: res.user
-        //   }
-        // })
       }
     })
 }
@@ -59,7 +60,8 @@ class LoginForm extends Component {
             <h1>Login</h1>
             {/* <Form size='large' id='login-form' onSubmit={() => this.props.onLogin(this.state)}> */}
             <Form size='large' id='login-form' onSubmit={() => this.onLogin(this.state)}>
-              <Form.Field onChange={this.handleChange} label='Email' control='input' placeholder='Email' />
+              <Form.Field onChange={this.handleChangeEmail} label='Email' control='input' placeholder='Email' />
+              <Form.Field onChange={this.handleChangePassword} label='Password' control='input' type='password' placeholder='Password' />
               <Button  type='submit'>Login</Button><br /><br />
               {/* <Button><Link to="/habits"> Log In</Link></Button><br /><br /> */}
               or
@@ -68,6 +70,7 @@ class LoginForm extends Component {
             </Form>
             {this.state.error? message : null}
           </div>
+
     </div>
     )
   }
