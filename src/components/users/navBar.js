@@ -16,7 +16,7 @@ class NavBar extends Component {
   handleItemClick = (e, { name }) => this.setState({ activeItem: name })
 
   isLoggedIn = () => {
-    return !!localStorage.getItem('email')
+    return !!this.props.currentUser.id
   }
 
   handleLogout = () => {
@@ -44,6 +44,12 @@ class NavBar extends Component {
   }
 }
 
+function mapStateToProps(state) {
+  return {
+    currentUser: state.currentUser
+  }
+}
+
 
 function mapDispatchToProps(dispatch) {
   return bindActionCreators({
@@ -51,4 +57,4 @@ function mapDispatchToProps(dispatch) {
   }, dispatch)
 }
 
-export default connect(null, mapDispatchToProps)(NavBar)
+export default connect(mapStateToProps, mapDispatchToProps)(NavBar)
