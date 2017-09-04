@@ -11,51 +11,36 @@ import ConnectedHabitShow from './habitShow'
 import ConnectedHabitForm from './habitNew'
 import ConnectedHabitEdit from './habitEdit'
 import Chart from '../dashboard/chart'
+import Auth from '../../authAdapter'
 
 class HabitContainer extends React.Component {
+
+  componentWillMount() {
+    if (localStorage.getItem('jwt')) {
+     Auth.currentUser()
+       .then(user => {
+         if (!user.error) {
+            this.props.setUser(user.user)
+          }
+        }) // end then
+    } // end if
+  }
 
   componentDidMount() {
     if (this.props.habits.length === 0) {
         this.props.fetchHabits()
     }
-
-    if (this.props.currentUser.name === undefined && localStorage.getItem('email') !== null) {
-      // debugger
-      this.findUser()
-    }
-  }
-
-  findUser() {
-    // debugger
-    fetch(`https://sheltered-reef-37337.herokuapp.com/api/v1/users`, {
-      method: 'GET',
-      headers: headers()
-    })
-    .then(res => res.json())
-    .then(json => {
-      let user = json.find( user => user.email === localStorage.getItem('email'))
-      this.props.setUser(user)
-    })
-
-    function headers () {
-      return {
-        'content-type': 'application/json',
-        'accept': 'application/json',
-        'Authorization': localStorage.getItem('email')
-      }
-    }
   }
 
   isLoggedIn = () => {
-    return !!localStorage.getItem('email')
+    return !!this.props.currentUser.id
   }
 
   render() {
     const { match, habits } = this.props;
     // have api only give back current user habits
     let filteredHabits = habits.filter( habit => {
-      // debugger
-      return habit.user.email === localStorage.getItem('email')
+      return habit.user.email === this.props.currentUser.email
     })
     let categories = habits.map((habit) => {
       return habit.category.name

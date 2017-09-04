@@ -1,4 +1,4 @@
-const baseUrl = 'https://sheltered-reef-37337.herokuapp.com/api/v1'
+const baseUrl = 'http://localhost:3000/api/v1'
 
 export default class AuthAdapter {
   static login (loginParams) {
@@ -8,12 +8,21 @@ export default class AuthAdapter {
       body: JSON.stringify(loginParams)
     }).then(res => res.json())
   }
+
+  static currentUser () {
+    return fetch(`${baseUrl}/me`, {
+      headers: headers()
+    })
+    .then(res => {
+      return res.json()
+    })
+  }
 }
 
 function headers () {
   return {
     'content-type': 'application/json',
     'accept': 'application/json',
-    'Authorization': localStorage.getItem('email')
+    'Authorization': localStorage.getItem('jwt')
   }
 }

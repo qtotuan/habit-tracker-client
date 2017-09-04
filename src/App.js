@@ -11,8 +11,21 @@ import ConnectedHabitContainer from './components/habits/habitContainer'
 import Logout from './components/users/logout'
 import NavBar from './components/users/navBar'
 import { Helmet } from 'react-helmet'
+import Auth from './authAdapter'
+import SetUser from './actions/setUser'
 
 class App extends Component {
+
+  componentWillMount() {
+    if (localStorage.getItem('jwt')) {
+     Auth.currentUser()
+       .then(user => {
+         if (!user.error) {
+            this.props.setUser(user.user)
+          }
+        }) // end then
+    } // end if
+  }
 
   componentDidMount() {
     if (this.props.habits.length === 0) {
@@ -22,7 +35,7 @@ class App extends Component {
 
 
   isLoggedIn = () => {
-    return !!localStorage.getItem('email')
+    return !!this.props.currentUser.id
   }
 
   render() {
@@ -44,12 +57,16 @@ class App extends Component {
 }
 
 function mapStateToProps(state) {
-  return { habits: state.habits}
+  return {
+    habits: state.habits,
+    currentUser: state.currentUser
+  }
 }
 
 function mapDispatchToProps(dispatch) {
   return bindActionCreators({
-    fetchHabits: FetchHabits
+    fetchHabits: FetchHabits,
+    setUser: SetUser
   }, dispatch)
 }
 
