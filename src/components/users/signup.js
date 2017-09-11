@@ -14,19 +14,19 @@ class SignUpForm extends Component {
       first_name: '',
       last_name: '',
       email: '',
+      password: '',
       redirect: false
     }
   }
 
   handleSubmit = (event) => {
     event.preventDefault()
-    fetch('https://sheltered-reef-37337.herokuapp.com/api/v1/signup', {
+    fetch(process.env.REACT_APP_API + 'signup', {
       method: 'POST',
       body: JSON.stringify(this.state),
       headers: {
         'content-type': 'application/json',
-        'accept': 'application/json',
-        // 'Authorization': localStorage.getItem('jwt')
+        'accept': 'application/json'
       }
     })
     .then(res => res.json())
@@ -55,6 +55,7 @@ class SignUpForm extends Component {
           <Form.Field name="first_name" label='First name' control='input' placeholder='First name' onChange={this.handleChange} required/>
           <Form.Field name="last_name" label='Last name' control='input' placeholder='Last name'  onChange={this.handleChange} required/>
           <Form.Field name="email" label='Email' control='input' placeholder='Email address'  onChange={this.handleChange} required/>
+          <Form.Field name="password" label='Password' control='input' placeholder='Password' type='password' onChange={this.handleChange} required/>
           <Button type='submit'>Submit</Button>
           <Divider hidden />
         </Form>
