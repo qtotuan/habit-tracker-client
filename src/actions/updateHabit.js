@@ -14,7 +14,7 @@ export default function setCurrentHabit(habit, state) {
 
   return (dispatch) => {
     dispatch({ type: "UPDATING_HABITS" });
-    return fetch(`https://sheltered-reef-37337.herokuapp.com/api/v1/habits/${habit.id}`, config)
+    return fetch(process.env.REACT_APP_API + `habits/${habit.id}`, config)
       .then(response => response.json())
       .then(json => {
         console.log("In updating_habits", json);

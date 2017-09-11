@@ -1,8 +1,8 @@
-const baseUrl = 'https://sheltered-reef-37337.herokuapp.com/api/v1'
+// const baseUrl = 'http://localhost:3000/api/v1'
 
 export default class AuthAdapter {
   static login (loginParams) {
-    return fetch(`${baseUrl}/login`, {
+    return fetch(process.env.REACT_APP_API + 'login', {
       method: 'POST',
       headers: headers(),
       body: JSON.stringify(loginParams)
@@ -10,7 +10,7 @@ export default class AuthAdapter {
   }
 
   static currentUser () {
-    return fetch(`${baseUrl}/me`, {
+    return fetch(process.env.REACT_APP_API + 'me', {
       headers: headers()
     })
     .then(res => {
