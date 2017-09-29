@@ -1,4 +1,4 @@
-Demo: https://track-your-habits.herokuapp.com
+Demo: https://track-your-habits.herokuapp.com  
 Server: https://github.com/qtotuan/habit-tracker-server
 
 # THE IDEA
