@@ -1,4 +1,5 @@
 Demo: https://track-your-habits.herokuapp.com
+Server: https://github.com/qtotuan/habit-tracker-server
 
 # THE IDEA
 Tracking habits is crucial when you want to establish new ones. It takes up to three months of consistent repetition until it becomes engrained. Seeing the progress motivates you and helps you stick to them. This app allows you to keep a visual streak of completed days and see the development of your completion rates week over week.
