@@ -1,4 +1,4 @@
-YouTube Demo:http://youtu.be/XyGOyAViTYU?hd=1  
+YouTube Demo: http://youtu.be/XyGOyAViTYU?hd=1  
 Live: https://track-your-habits.herokuapp.com  
 Server: https://github.com/qtotuan/habit-tracker-server
 
