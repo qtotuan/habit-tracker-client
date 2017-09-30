@@ -7,7 +7,7 @@ Tracking habits is crucial when you want to establish new ones. It takes up to t
 
 # FEATURES
 * Manage habits: create unlimited habits, edit/delete existing ones
-* View habit streaks in a eekly and monthly calendar
+* View habit streaks in a weekly and monthly calendar
 * See status in a dashboard with weekly completion rates
 * Check off habits completed for each day
 * Filtering for habits by category, persistent filters
